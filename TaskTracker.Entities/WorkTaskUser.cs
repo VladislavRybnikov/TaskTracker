@@ -9,6 +9,8 @@ namespace TaskTracker.Entities
     {
         public UserContacts UserContacts { get; set; }
         public byte Role { get; set; }
-        public virtual ICollection<WorkTask> WorkTasks { get; set; }
+        public string Specialization { get; set; }
+        public ICollection<WorkTask> WorkTasks { get; set; }
+        public string AvatarPath { get; set; }
     }
 }

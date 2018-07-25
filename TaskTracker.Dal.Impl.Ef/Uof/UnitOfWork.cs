@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Text;
 using TaskTracker.Dal.Abstract.Repositories;
 using TaskTracker.Dal.Abstract.Uof;
+using TaskTracker.Dal.Impl.Ef.Repositories;
+using TaskTracker.Entities.Base;
 
 namespace TaskTracker.Dal.Impl.Ef.Uof
 {
@@ -10,34 +13,24 @@ namespace TaskTracker.Dal.Impl.Ef.Uof
     {
         private bool _disposed = false;
 
-        private IWorkTaskRepository _workTaskRepository;
-        private IWorkTaskCategoryRepository _workTaskCategoryRepository;
-        private IWorkTaskUserRepository _workTaskUserRepository;
-        private IUserContactsRepository _userContactsRepository;
-        private IWorkTaskDateInfoRepository _workTaskDateInfoRepository;
-        private IWorkTaskProgressRepository _workTaskProgressRepository;
-        private ILocationRepository _locationRepository;
+        private readonly DbContext _context;
 
+        private IWorkTaskRepository _workTaskRepository;
+        private IWorkTaskUserRepository _workTaskUserRepository;
+
+        public UnitOfWork(DbContext context)
+        {
+            _context = context;
+        }
 
         public IWorkTaskRepository WorkTaskRepository
         {
             get
             {
                 if (_workTaskRepository == null)
-                    _workTaskRepository = null;
+                    _workTaskRepository = new WorkTaskRepository(_context);
 
                 return _workTaskRepository;
-            }
-        }
-
-        public IWorkTaskCategoryRepository WorkTaskCategoryRepository
-        {
-            get
-            {
-                if (_workTaskCategoryRepository == null)
-                    _workTaskCategoryRepository = null;
-
-                return _workTaskCategoryRepository;
             }
         }
 
@@ -46,63 +39,20 @@ namespace TaskTracker.Dal.Impl.Ef.Uof
             get
             {
                 if (_workTaskUserRepository == null)
-                    _workTaskUserRepository = null;
+                    _workTaskUserRepository = new WorkTaskUserRepository
+                        (_context);
 
                 return _workTaskUserRepository;
             }
         }
-
-        public IUserContactsRepository UserContactsRepository
-        {
-            get
-            {
-                if (_userContactsRepository == null)
-                    _userContactsRepository = null;
-
-                return _userContactsRepository;
-            }
-        }
-
-        public IWorkTaskDateInfoRepository WorkTaskDateInfoRepository
-        {
-            get
-            {
-                if (_workTaskDateInfoRepository == null)
-                    _workTaskDateInfoRepository = null;
-
-                return _workTaskDateInfoRepository;
-            }
-        }
-
-        public IWorkTaskProgressRepository WorkTaskProgressRepository
-        {
-            get
-            {
-                if (_workTaskProgressRepository == null)
-                    _workTaskProgressRepository = null;
-
-                return _workTaskProgressRepository;
-            }
-        }
-
-        public ILocationRepository LocationRepository
-        {
-            get
-            {
-                if (_locationRepository == null)
-                    _locationRepository = null;
-
-                return _locationRepository;
-            }
-        }
-
+        
         protected virtual void Dispose(bool disposing)
         {
             if (!_disposed)
             {
                 if (disposing)
                 {
-                    //_context.Dispose();
+                    _context.Dispose();
                 }
             }
             _disposed = true;
@@ -116,12 +66,18 @@ namespace TaskTracker.Dal.Impl.Ef.Uof
 
         public void SaveChanges()
         {
-            throw new NotImplementedException();
+            _context.SaveChanges();
         }
 
-        public void SaveChangesAsync()
+        public async void SaveChangesAsync()
         {
-            throw new NotImplementedException();
+            await _context.SaveChangesAsync();
+        }
+
+        public IGenericRepository<TEntity> GetGenericRepository<TEntity>() 
+            where TEntity : BaseIntIdEntity
+        {
+            return new GenericRepository<TEntity>(_context);
         }
     }
 }

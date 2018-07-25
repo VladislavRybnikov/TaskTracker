@@ -8,4 +8,8 @@
     <ProjectReference Include="..\TaskTracker.Messaging.Entities\TaskTracker.Messaging.Entities.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Dto\" />
+  </ItemGroup>
+
 </Project>
