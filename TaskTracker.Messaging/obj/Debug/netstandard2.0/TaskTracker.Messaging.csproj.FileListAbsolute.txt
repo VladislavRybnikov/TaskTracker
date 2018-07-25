@@ -1,0 +1,16 @@
+C:\Users\user\source\repos\TaskTracker\TaskTracker.Messaging\bin\Debug\netstandard2.0\TaskTracker.Messaging.deps.json
+C:\Users\user\source\repos\TaskTracker\TaskTracker.Messaging\bin\Debug\netstandard2.0\TaskTracker.Messaging.dll
+C:\Users\user\source\repos\TaskTracker\TaskTracker.Messaging\bin\Debug\netstandard2.0\TaskTracker.Messaging.pdb
+C:\Users\user\source\repos\TaskTracker\TaskTracker.Messaging\bin\Debug\netstandard2.0\TaskTracker.Common.dll
+C:\Users\user\source\repos\TaskTracker\TaskTracker.Messaging\bin\Debug\netstandard2.0\TaskTracker.Mapping.dll
+C:\Users\user\source\repos\TaskTracker\TaskTracker.Messaging\bin\Debug\netstandard2.0\TaskTracker.Messaging.Entities.dll
+C:\Users\user\source\repos\TaskTracker\TaskTracker.Messaging\bin\Debug\netstandard2.0\TaskTracker.Common.pdb
+C:\Users\user\source\repos\TaskTracker\TaskTracker.Messaging\bin\Debug\netstandard2.0\TaskTracker.Mapping.pdb
+C:\Users\user\source\repos\TaskTracker\TaskTracker.Messaging\bin\Debug\netstandard2.0\TaskTracker.Messaging.Entities.pdb
+C:\Users\user\source\repos\TaskTracker\TaskTracker.Messaging\obj\Debug\netstandard2.0\TaskTracker.Messaging.csprojAssemblyReference.cache
+C:\Users\user\source\repos\TaskTracker\TaskTracker.Messaging\obj\Debug\netstandard2.0\TaskTracker.Messaging.csproj.CoreCompileInputs.cache
+C:\Users\user\source\repos\TaskTracker\TaskTracker.Messaging\obj\Debug\netstandard2.0\TaskTracker.Messaging.AssemblyInfoInputs.cache
+C:\Users\user\source\repos\TaskTracker\TaskTracker.Messaging\obj\Debug\netstandard2.0\TaskTracker.Messaging.AssemblyInfo.cs
+C:\Users\user\source\repos\TaskTracker\TaskTracker.Messaging\obj\Debug\netstandard2.0\TaskTracker.Messaging.csproj.CopyComplete
+C:\Users\user\source\repos\TaskTracker\TaskTracker.Messaging\obj\Debug\netstandard2.0\TaskTracker.Messaging.dll
+C:\Users\user\source\repos\TaskTracker\TaskTracker.Messaging\obj\Debug\netstandard2.0\TaskTracker.Messaging.pdb

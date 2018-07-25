@@ -1,0 +1,9 @@
+C:\Users\user\source\repos\TaskTracker\TaskTracker.Common\bin\Debug\netstandard2.0\TaskTracker.Common.deps.json
+C:\Users\user\source\repos\TaskTracker\TaskTracker.Common\bin\Debug\netstandard2.0\TaskTracker.Common.dll
+C:\Users\user\source\repos\TaskTracker\TaskTracker.Common\bin\Debug\netstandard2.0\TaskTracker.Common.pdb
+C:\Users\user\source\repos\TaskTracker\TaskTracker.Common\obj\Debug\netstandard2.0\TaskTracker.Common.csprojAssemblyReference.cache
+C:\Users\user\source\repos\TaskTracker\TaskTracker.Common\obj\Debug\netstandard2.0\TaskTracker.Common.csproj.CoreCompileInputs.cache
+C:\Users\user\source\repos\TaskTracker\TaskTracker.Common\obj\Debug\netstandard2.0\TaskTracker.Common.AssemblyInfoInputs.cache
+C:\Users\user\source\repos\TaskTracker\TaskTracker.Common\obj\Debug\netstandard2.0\TaskTracker.Common.AssemblyInfo.cs
+C:\Users\user\source\repos\TaskTracker\TaskTracker.Common\obj\Debug\netstandard2.0\TaskTracker.Common.dll
+C:\Users\user\source\repos\TaskTracker\TaskTracker.Common\obj\Debug\netstandard2.0\TaskTracker.Common.pdb

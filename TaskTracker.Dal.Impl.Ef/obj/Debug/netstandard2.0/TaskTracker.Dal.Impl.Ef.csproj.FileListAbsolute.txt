@@ -1,0 +1,14 @@
+C:\Users\user\source\repos\TaskTracker\TaskTracker.Dal.Impl.Ef\bin\Debug\netstandard2.0\TaskTracker.Dal.Impl.Ef.deps.json
+C:\Users\user\source\repos\TaskTracker\TaskTracker.Dal.Impl.Ef\bin\Debug\netstandard2.0\TaskTracker.Dal.Impl.Ef.dll
+C:\Users\user\source\repos\TaskTracker\TaskTracker.Dal.Impl.Ef\bin\Debug\netstandard2.0\TaskTracker.Dal.Impl.Ef.pdb
+C:\Users\user\source\repos\TaskTracker\TaskTracker.Dal.Impl.Ef\bin\Debug\netstandard2.0\TaskTracker.Dal.Abstract.dll
+C:\Users\user\source\repos\TaskTracker\TaskTracker.Dal.Impl.Ef\bin\Debug\netstandard2.0\TaskTracker.Entities.dll
+C:\Users\user\source\repos\TaskTracker\TaskTracker.Dal.Impl.Ef\bin\Debug\netstandard2.0\TaskTracker.Dal.Abstract.pdb
+C:\Users\user\source\repos\TaskTracker\TaskTracker.Dal.Impl.Ef\bin\Debug\netstandard2.0\TaskTracker.Entities.pdb
+C:\Users\user\source\repos\TaskTracker\TaskTracker.Dal.Impl.Ef\obj\Debug\netstandard2.0\TaskTracker.Dal.Impl.Ef.csprojAssemblyReference.cache
+C:\Users\user\source\repos\TaskTracker\TaskTracker.Dal.Impl.Ef\obj\Debug\netstandard2.0\TaskTracker.Dal.Impl.Ef.csproj.CoreCompileInputs.cache
+C:\Users\user\source\repos\TaskTracker\TaskTracker.Dal.Impl.Ef\obj\Debug\netstandard2.0\TaskTracker.Dal.Impl.Ef.AssemblyInfoInputs.cache
+C:\Users\user\source\repos\TaskTracker\TaskTracker.Dal.Impl.Ef\obj\Debug\netstandard2.0\TaskTracker.Dal.Impl.Ef.AssemblyInfo.cs
+C:\Users\user\source\repos\TaskTracker\TaskTracker.Dal.Impl.Ef\obj\Debug\netstandard2.0\TaskTracker.Dal.Impl.Ef.csproj.CopyComplete
+C:\Users\user\source\repos\TaskTracker\TaskTracker.Dal.Impl.Ef\obj\Debug\netstandard2.0\TaskTracker.Dal.Impl.Ef.dll
+C:\Users\user\source\repos\TaskTracker\TaskTracker.Dal.Impl.Ef\obj\Debug\netstandard2.0\TaskTracker.Dal.Impl.Ef.pdb
