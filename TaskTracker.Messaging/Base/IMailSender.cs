@@ -7,7 +7,10 @@ using TaskTracker.Messaging.Entities;
 
 namespace TaskTracker.Messaging.Base
 {
-    public interface IMailSender
+    /// <summary>
+    /// Provides basic logic for sending mail.
+    /// </summary>
+    public interface IMailSender : IDisposable
     {
         void SendMail(MailEntity mail);
         void SendMailAsync(MailEntity mail);

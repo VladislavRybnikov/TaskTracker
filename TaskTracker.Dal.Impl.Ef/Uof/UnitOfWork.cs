@@ -74,10 +74,15 @@ namespace TaskTracker.Dal.Impl.Ef.Uof
             await _context.SaveChangesAsync();
         }
 
-        public IGenericRepository<TEntity> GetGenericRepository<TEntity>() 
+        public IGenericRepository<TEntity> GenericRepository<TEntity>() 
             where TEntity : BaseIntIdEntity
         {
             return new GenericRepository<TEntity>(_context);
+        }
+
+        ~UnitOfWork()
+        {
+            Dispose(false);
         }
     }
 }

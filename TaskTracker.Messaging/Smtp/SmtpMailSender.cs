@@ -12,36 +12,85 @@ using TaskTracker.Messaging.Entities;
 
 namespace TaskTracker.Messaging.Smtp
 {
+    /// <summary>
+    /// Provides methods for sending mail via smtp.
+    /// Need to be disposed.
+    /// </summary>
     public class SmtpMailSender : IMailSender
     {
+        private bool _disposed = false;
+
         private readonly IMailEntityToMailMessageMapper _mapper;
-        private readonly SmtpConfiguration _configuration;
+        private SmtpClient _smtpClient;
+
 
         public SmtpMailSender(IMailEntityToMailMessageMapper mapper, 
             SmtpConfiguration config)
         {
             _mapper = mapper;
-            _configuration = config;
+            InitializeSmtp(config);
         }
 
-        public void SendMail(MailEntity mail) 
-            => GetSmtpClient().Send(_mapper.Map(mail));
-
-        public async void SendMailAsync(MailEntity mail) 
-            => await Task.Run(() => SendMail(mail));
-
-        private SmtpClient GetSmtpClient()
+        //Initialize SmtpClient using SmtpConfiguration. 
+        private void InitializeSmtp(SmtpConfiguration configuration)
         {
             SmtpClient smtpClient = new SmtpClient
-                (_configuration.SmtpProvider)
+                    (configuration.SmtpProvider)
             {
-                Port = _configuration.Port,
+                Port = configuration.Port,
                 Credentials = new NetworkCredential
-                (_configuration.MailAddress, _configuration.Password),
-                EnableSsl = _configuration.EnableSsl
+                    (configuration.MailAddress, configuration.Password),
+                EnableSsl = configuration.EnableSsl
             };
+            _smtpClient = smtpClient;
+        }
 
-            return smtpClient;
+        /// <summary>
+        /// Send mail via smtp connection synchronously.
+        /// </summary>
+        /// <param name="mail">Mail entity to send.</param>
+        public void SendMail(MailEntity mail)
+        {
+            var smtpMail = _mapper.Map(mail);
+
+            _smtpClient.Send(smtpMail);
+        }
+
+        /// <summary>
+        ///  Send mail via smtp connection asynchronously.
+        /// </summary>
+        /// <param name="mail">Mail entity to send.</param>
+        public async void SendMailAsync(MailEntity mail)
+        {
+            var smtpMail = _mapper.Map(mail);
+
+            await _smtpClient.SendMailAsync(smtpMail);
+        }
+
+        /// <summary>
+        /// Sends QUIT message to SMTP, end TCP connection.
+        /// </summary>
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_disposed)
+            {
+                if (disposing)
+                {
+                    _smtpClient.Dispose();
+                }
+            }
+            _disposed = true;
+        }
+
+        ~SmtpMailSender()
+        {
+            Dispose(false);
         }
 
     }

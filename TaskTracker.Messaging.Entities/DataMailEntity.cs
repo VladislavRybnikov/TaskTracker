@@ -4,6 +4,9 @@ using System.Text;
 
 namespace TaskTracker.Messaging.Entities
 {
+    /// <summary>
+    /// Data mail part. Contains all mail content.
+    /// </summary>
     public class DataMailEntity
     {
         public bool IsHtml { get; set; }

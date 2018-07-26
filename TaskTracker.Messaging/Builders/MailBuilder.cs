@@ -5,25 +5,27 @@ using TaskTracker.Messaging.Entities;
 
 namespace TaskTracker.Messaging.Builders
 {
+    /// <summary>
+    /// Base mail entity builder implementation.
+    /// </summary>
     public class MailBuilder : IMailBuilder
     {
-        private MailEntity _mail;
 
-        public MailEntity Mail => _mail;
+        public MailEntity Mail { get; private set; }
 
         public MailBuilder()
         {
-            _mail = new MailEntity();
+            Mail = new MailEntity();
         }
 
         public void AddAttachment(string path)
         {
-            _mail.Data.Attachments.Add(path);
+            Mail.Data.Attachments.Add(path);
         }
 
         public void AddAttacments(IEnumerable<string> attachments)
         {
-            _mail.Data.Attachments.AddRange(attachments);
+            Mail.Data.Attachments.AddRange(attachments);
         }
 
         public void AddAttacments(params string[] attachments)
@@ -33,52 +35,52 @@ namespace TaskTracker.Messaging.Builders
 
         public void AddFromMail(string fromMail)
         {
-            _mail.From = fromMail;
+            Mail.From = fromMail;
         }
 
         public void AddFromName(string fromName)
         {
-            _mail.FromName = fromName;
+            Mail.FromName = fromName;
         }
 
         public void AddHtml(string html)
         {
-            _mail.Data.IsHtml = true;
-            _mail.Data.Text = html;
+            Mail.Data.IsHtml = true;
+            Mail.Data.Text = html;
         }
 
         public void AddSubject(string subject)
         {
-            _mail.Data.Subject = subject;
+            Mail.Data.Subject = subject;
         }
 
         public void AddText(string text)
         {
-            _mail.Data.IsHtml = false;
-            _mail.Data.Text = text;
+            Mail.Data.IsHtml = false;
+            Mail.Data.Text = text;
         }
 
         public void AddToMail(string toMail)
         {
-            _mail.To = toMail;
+            Mail.To = toMail;
         }
 
         public void AddToName(string toName)
         {
-            _mail.ToName = toName;
+            Mail.ToName = toName;
         }
 
         public void AddSystemPart(SystemMailEntity systemPart)
         {
-            _mail.From = systemPart.From;
-            _mail.FromName = systemPart.FromName;
-            _mail.To = systemPart.To;
-            _mail.ToName = systemPart.ToName;
+            Mail.From = systemPart.From;
+            Mail.FromName = systemPart.FromName;
+            Mail.To = systemPart.To;
+            Mail.ToName = systemPart.ToName;
         }
 
         public void Clear()
         {
-            _mail = new MailEntity();
+            Mail = new MailEntity();
         }
     }
 }

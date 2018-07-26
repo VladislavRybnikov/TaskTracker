@@ -5,6 +5,9 @@ using TaskTracker.Messaging.Entities;
 
 namespace TaskTracker.Messaging.Builders
 {
+    /// <summary>
+    /// Builder interface for mail entities.
+    /// </summary>
     public interface IMailBuilder
     {
         MailEntity Mail { get; }

@@ -11,7 +11,7 @@ namespace TaskTracker.Dal.Abstract.Uof
         IWorkTaskRepository WorkTaskRepository { get; }
         IWorkTaskUserRepository WorkTaskUserRepository { get; }
    
-        IGenericRepository<TEntity> GetGenericRepository<TEntity>() 
+        IGenericRepository<TEntity> GenericRepository<TEntity>() 
             where TEntity : BaseIntIdEntity;
 
         void SaveChanges();
