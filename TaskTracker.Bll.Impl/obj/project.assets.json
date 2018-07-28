@@ -25,6 +25,79 @@
         "build": {
           "build/netstandard2.0/NETStandard.Library.targets": {}
         }
+      },
+      "TaskTracker.Bll.Abstract/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "dependencies": {
+          "TaskTracker.Common": "1.0.0",
+          "TaskTracker.Dto": "1.0.0",
+          "TaskTracker.Messaging.Entities": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/TaskTracker.Bll.Abstract.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/TaskTracker.Bll.Abstract.dll": {}
+        }
+      },
+      "TaskTracker.Common/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "compile": {
+          "bin/placeholder/TaskTracker.Common.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/TaskTracker.Common.dll": {}
+        }
+      },
+      "TaskTracker.Dto/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "compile": {
+          "bin/placeholder/TaskTracker.Dto.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/TaskTracker.Dto.dll": {}
+        }
+      },
+      "TaskTracker.Mapping/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "dependencies": {
+          "TaskTracker.Messaging.Entities": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/TaskTracker.Mapping.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/TaskTracker.Mapping.dll": {}
+        }
+      },
+      "TaskTracker.Messaging/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "dependencies": {
+          "TaskTracker.Common": "1.0.0",
+          "TaskTracker.Mapping": "1.0.0",
+          "TaskTracker.Messaging.Entities": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/TaskTracker.Messaging.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/TaskTracker.Messaging.dll": {}
+        }
+      },
+      "TaskTracker.Messaging.Entities/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "compile": {
+          "bin/placeholder/TaskTracker.Messaging.Entities.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/TaskTracker.Messaging.Entities.dll": {}
+        }
       }
     }
   },
@@ -169,11 +242,43 @@
         "netstandard.library.2.0.1.nupkg.sha512",
         "netstandard.library.nuspec"
       ]
+    },
+    "TaskTracker.Bll.Abstract/1.0.0": {
+      "type": "project",
+      "path": "../TaskTracker.Bll.Abstract/TaskTracker.Bll.Abstract.csproj",
+      "msbuildProject": "../TaskTracker.Bll.Abstract/TaskTracker.Bll.Abstract.csproj"
+    },
+    "TaskTracker.Common/1.0.0": {
+      "type": "project",
+      "path": "../TaskTracker.Common/TaskTracker.Common.csproj",
+      "msbuildProject": "../TaskTracker.Common/TaskTracker.Common.csproj"
+    },
+    "TaskTracker.Dto/1.0.0": {
+      "type": "project",
+      "path": "../TaskTracker.Dto/TaskTracker.Dto.csproj",
+      "msbuildProject": "../TaskTracker.Dto/TaskTracker.Dto.csproj"
+    },
+    "TaskTracker.Mapping/1.0.0": {
+      "type": "project",
+      "path": "../TaskTracker.Mapping/TaskTracker.Mapping.csproj",
+      "msbuildProject": "../TaskTracker.Mapping/TaskTracker.Mapping.csproj"
+    },
+    "TaskTracker.Messaging/1.0.0": {
+      "type": "project",
+      "path": "../TaskTracker.Messaging/TaskTracker.Messaging.csproj",
+      "msbuildProject": "../TaskTracker.Messaging/TaskTracker.Messaging.csproj"
+    },
+    "TaskTracker.Messaging.Entities/1.0.0": {
+      "type": "project",
+      "path": "../TaskTracker.Messaging.Entities/TaskTracker.Messaging.Entities.csproj",
+      "msbuildProject": "../TaskTracker.Messaging.Entities/TaskTracker.Messaging.Entities.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v2.0": [
-      "NETStandard.Library >= 2.0.1"
+      "NETStandard.Library >= 2.0.1",
+      "TaskTracker.Bll.Abstract >= 1.0.0",
+      "TaskTracker.Messaging >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -205,7 +310,14 @@
       },
       "frameworks": {
         "netstandard2.0": {
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\user\\source\\repos\\TaskTracker\\TaskTracker.Bll.Abstract\\TaskTracker.Bll.Abstract.csproj": {
+              "projectPath": "C:\\Users\\user\\source\\repos\\TaskTracker\\TaskTracker.Bll.Abstract\\TaskTracker.Bll.Abstract.csproj"
+            },
+            "C:\\Users\\user\\source\\repos\\TaskTracker\\TaskTracker.Messaging\\TaskTracker.Messaging.csproj": {
+              "projectPath": "C:\\Users\\user\\source\\repos\\TaskTracker\\TaskTracker.Messaging\\TaskTracker.Messaging.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

@@ -60,7 +60,7 @@ namespace TaskTracker.Messaging.Smtp
         ///  Send mail via smtp connection asynchronously.
         /// </summary>
         /// <param name="mail">Mail entity to send.</param>
-        public async void SendMailAsync(MailEntity mail)
+        public async Task SendMailAsync(MailEntity mail)
         {
             var smtpMail = _mapper.Map(mail);
 

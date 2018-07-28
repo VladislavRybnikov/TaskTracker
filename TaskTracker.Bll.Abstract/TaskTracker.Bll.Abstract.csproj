@@ -5,11 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Logging\" />
-    <Folder Include="Services\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\TaskTracker.Common\TaskTracker.Common.csproj" />
     <ProjectReference Include="..\TaskTracker.Dto\TaskTracker.Dto.csproj" />
     <ProjectReference Include="..\TaskTracker.Messaging.Entities\TaskTracker.Messaging.Entities.csproj" />

@@ -10,6 +10,11 @@ namespace TaskTracker.Dal.Abstract.Uof
     {
         IWorkTaskRepository WorkTaskRepository { get; }
         IWorkTaskUserRepository WorkTaskUserRepository { get; }
+        IWorkTaskCategoryRepository WorkTaskCategoryRepository { get; }
+        IWorkTaskDateInfoRepository WorkTaskDateInfoRepository { get; }
+        IWorkTaskProgressRepository WorkTaskProgressRepository { get; }
+        ILocationRepository LocationRepository { get; }
+        IUserContactsRepository UserContactsRepository { get; }
    
         IGenericRepository<TEntity> GenericRepository<TEntity>() 
             where TEntity : BaseIntIdEntity;

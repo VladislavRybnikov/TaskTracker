@@ -13,6 +13,6 @@ namespace TaskTracker.Messaging.Base
     public interface IMailSender : IDisposable
     {
         void SendMail(MailEntity mail);
-        void SendMailAsync(MailEntity mail);
+        Task SendMailAsync(MailEntity mail);
     }
 }

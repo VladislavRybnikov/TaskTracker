@@ -17,6 +17,11 @@ namespace TaskTracker.Dal.Impl.Ef.Uof
 
         private IWorkTaskRepository _workTaskRepository;
         private IWorkTaskUserRepository _workTaskUserRepository;
+        private IWorkTaskProgressRepository _workTaskProgressRepository;
+        private IWorkTaskDateInfoRepository _workTaskDateInfoRepository;
+        private IWorkTaskCategoryRepository _workTaskCategoryRepository;
+        private IUserContactsRepository _userContactsRepository;
+        private ILocationRepository _locationRepository;
 
         public UnitOfWork(DbContext context)
         {
@@ -45,7 +50,64 @@ namespace TaskTracker.Dal.Impl.Ef.Uof
                 return _workTaskUserRepository;
             }
         }
-        
+
+
+        public IWorkTaskCategoryRepository WorkTaskCategoryRepository
+        {
+            get
+            {
+                if (_workTaskCategoryRepository == null)
+                    _workTaskCategoryRepository = new WorkTaskCategoryRepository(_context);
+
+                return _workTaskCategoryRepository;
+            }
+        }
+
+        public IWorkTaskDateInfoRepository WorkTaskDateInfoRepository
+        {
+            get
+            {
+                if (_workTaskDateInfoRepository == null)
+                    _workTaskDateInfoRepository = new WorkTaskDateInfoRepository(_context);
+
+                return _workTaskDateInfoRepository;
+            }
+        }
+
+        public IWorkTaskProgressRepository WorkTaskProgressRepository
+        {
+            get
+            {
+                if (_workTaskProgressRepository == null)
+                    _workTaskProgressRepository = new WorkTaskProgressRepository(_context);
+
+                return _workTaskProgressRepository;
+            }
+        }
+
+        public ILocationRepository LocationRepository
+        {
+            get
+            {
+                if (_locationRepository == null)
+                    _locationRepository = new LocationRepository(_context);
+
+                return _locationRepository;
+            }
+        }
+
+        public IUserContactsRepository UserContactsRepository
+        {
+            get
+            {
+                if (_userContactsRepository == null)
+                    _userContactsRepository = new UserContactsRepository(_context);
+
+                return _userContactsRepository;
+            }
+        }
+
+
         protected virtual void Dispose(bool disposing)
         {
             if (!_disposed)
@@ -55,6 +117,7 @@ namespace TaskTracker.Dal.Impl.Ef.Uof
                     _context.Dispose();
                 }
             }
+
             _disposed = true;
         }
 
