@@ -5,6 +5,7 @@ using TaskTracker.Bll.Abstract.Messaging.Factory;
 using TaskTracker.Bll.Abstract.Messaging.Template;
 using TaskTracker.Bll.Impl.Messaging.Templates;
 using TaskTracker.Common.Enums;
+using TaskTracker.Messaging.Builders;
 using TaskTracker.Messaging.Entities;
 
 namespace TaskTracker.Bll.Impl.Messaging.Factory
@@ -15,20 +16,25 @@ namespace TaskTracker.Bll.Impl.Messaging.Factory
     public class MessageFactory : IMessageTemplateFactory
     {
         private static List<IMessageTemplate> _messageTemplates;
+        private static IMailBuilder _builder;
 
-        static MessageFactory()
+        public MessageFactory(IMailBuilder builder)
         {
+            _builder = builder;
             Initialize();
         }
 
         private static void Initialize()
         {
-            _messageTemplates = new List<IMessageTemplate>
+            if (_messageTemplates == null)
             {
-                new RegistrationTemplate(),
-                new TaskDeadlineTemplate(),
-                new TaskStartTemplate()
-            };
+                _messageTemplates = new List<IMessageTemplate>
+                {
+                    new RegistrationTemplate(_builder),
+                    new TaskDeadlineTemplate(),
+                    new TaskStartTemplate()
+                };
+            }
         }
 
         /// <summary>

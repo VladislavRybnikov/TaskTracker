@@ -29,7 +29,7 @@ namespace TaskTracker.Bll.Impl.Messaging.Templates
                 .Append(@"</style>
                         </head>
                         <body>
-                            <div class= 'message - header'>
+                            <div class= 'message-header'>
                                 <div class='title'>
                                     TaskTracker
                                 </div>
@@ -38,7 +38,7 @@ namespace TaskTracker.Bll.Impl.Messaging.Templates
                                 <div>
                                     <h3>TaskTracker Team.</h3>
                                      <hr>")
-                 .Append($"Hello {systemMail.FromName}.<br>")
+                 .Append($"Hello {systemMail.ToName}.<br>")
                  .Append(@"Welcome to TaskTracker!<br>
                     Thanks for your registration. 
                     Return to the site to update your information 
