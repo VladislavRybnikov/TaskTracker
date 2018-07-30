@@ -12,9 +12,9 @@ namespace TaskTracker.Bll.Impl.Messaging
     public class TemplateSender : ITemplateSender
     {
         private readonly IMailSender _mailSender;
-        private readonly IMessageFactory _factory;
+        private readonly IMessageTemplateFactory _factory;
 
-        public TemplateSender(IMessageFactory messageFactory, IMailSender sender)
+        public TemplateSender(IMessageTemplateFactory messageFactory, IMailSender sender)
         {
             _mailSender = sender;
             _factory = messageFactory;
@@ -22,7 +22,7 @@ namespace TaskTracker.Bll.Impl.Messaging
 
         public void Send(MessageTemplateType type, SystemMailEntity systemMail)
         {
-            var mail = _factory.GetMessageTemplate(type, systemMail);
+            var mail = _factory.GetMessageTemplate(type).GetMail(systemMail);
 
             using (_mailSender)
             {
@@ -33,7 +33,7 @@ namespace TaskTracker.Bll.Impl.Messaging
         public async void SendAsync(MessageTemplateType type,
             SystemMailEntity systemMail)
         {
-            var mail = _factory.GetMessageTemplate(type, systemMail);
+            var mail = _factory.GetMessageTemplate(type).GetMail(systemMail);
 
             using (_mailSender)
             {

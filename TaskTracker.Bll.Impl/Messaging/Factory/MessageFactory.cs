@@ -12,7 +12,7 @@ namespace TaskTracker.Bll.Impl.Messaging.Factory
     /// <summary>
     /// Factory that return mail entites from template based on MessageTemplateType.
     /// </summary>
-    public class MessageFactory : IMessageFactory
+    public class MessageFactory : IMessageTemplateFactory
     {
         private static List<IMessageTemplate> _messageTemplates;
 
@@ -25,24 +25,21 @@ namespace TaskTracker.Bll.Impl.Messaging.Factory
         {
             _messageTemplates = new List<IMessageTemplate>
             {
-                new RegistrationConfirmationTemplate(),
+                new RegistrationTemplate(),
                 new TaskDeadlineTemplate(),
                 new TaskStartTemplate()
             };
         }
 
         /// <summary>
-        /// Return MailEntity with content from template.
+        /// Return message template by type.
         /// </summary>
         /// <param name="type">Template type.</param>
-        /// <param name="systemMail">System template part.</param>
         /// <returns></returns>
-        public MailEntity GetMessageTemplate(MessageTemplateType type,
-            SystemMailEntity systemMail)
+        public IMessageTemplate GetMessageTemplate(MessageTemplateType type)
         {
             return _messageTemplates
-                .Find(x => x.MessageType == type)
-                .GetMail(systemMail);
+                .Find(x => x.MessageType == type);
         }
     }
 }

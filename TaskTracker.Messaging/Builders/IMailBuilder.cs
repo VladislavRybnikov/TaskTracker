@@ -10,19 +10,18 @@ namespace TaskTracker.Messaging.Builders
     /// </summary>
     public interface IMailBuilder
     {
-        MailEntity Mail { get; }
-
-        void AddSystemPart(SystemMailEntity systemPart);
-        void AddFromName(string fromName);
-        void AddFromMail(string fromMail);
-        void AddToName(string ToName);
-        void AddToMail(string ToMail);
-        void AddAttachment(string path);
-        void AddAttacments(IEnumerable<string> attachments);
-        void AddAttacments(params string[] attachments);
-        void AddText(string text);
-        void AddHtml(string html);
-        void AddSubject(string subject);
-        void Clear();
+        IMailBuilder AddSystemPart(SystemMailEntity systemPart);
+        IMailBuilder AddFromName(string fromName);
+        IMailBuilder AddFromMail(string fromMail);
+        IMailBuilder AddToName(string ToName);
+        IMailBuilder AddToMail(string ToMail);
+        IMailBuilder AddAttachment(string path);
+        IMailBuilder AddAttacments(IEnumerable<string> attachments);
+        IMailBuilder AddAttacments(params string[] attachments);
+        IMailBuilder AddText(string text);
+        IMailBuilder AddHtml(string html);
+        IMailBuilder AddSubject(string subject);
+        MailEntity Build();
+        IMailBuilder Clear();
     }
 }

@@ -9,6 +9,5 @@ namespace TaskTracker.Entities
     {
         public decimal ExecutedPercent { get; set; }
         public int WorkTaskState { get; set; }
-
     }
 }

@@ -107,6 +107,9 @@ namespace TaskTracker.Dal.Impl.Ef.Uof
             }
         }
 
+        public IWorkTaskPointRepository WorkTaskPointRepository => throw new NotImplementedException();
+
+        public IWorkTaskPointProgressRepository WorkTaskPointProgressRepository => throw new NotImplementedException();
 
         protected virtual void Dispose(bool disposing)
         {

@@ -5,7 +5,7 @@ using TaskTracker.Entities;
 
 namespace TaskTracker.Dal.Abstract.Repositories
 {
-    public interface IWorkTaskDateInfoRepository : IGenericRepository<WorkTaskProgress>
+    public interface IWorkTaskDateInfoRepository : IGenericRepository<WorkTaskDateInfo>
     {
     }
 }

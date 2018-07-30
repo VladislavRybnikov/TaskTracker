@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TaskTracker.Bll.Abstract\TaskTracker.Bll.Abstract.csproj" />
     <ProjectReference Include="..\TaskTracker.Entities\TaskTracker.Entities.csproj" />
   </ItemGroup>
 

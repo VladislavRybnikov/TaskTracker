@@ -12,3 +12,11 @@ C:\Users\user\source\repos\TaskTracker\TaskTracker.Dal.Impl.Ef\obj\Debug\netstan
 C:\Users\user\source\repos\TaskTracker\TaskTracker.Dal.Impl.Ef\obj\Debug\netstandard2.0\TaskTracker.Dal.Impl.Ef.csproj.CopyComplete
 C:\Users\user\source\repos\TaskTracker\TaskTracker.Dal.Impl.Ef\obj\Debug\netstandard2.0\TaskTracker.Dal.Impl.Ef.dll
 C:\Users\user\source\repos\TaskTracker\TaskTracker.Dal.Impl.Ef\obj\Debug\netstandard2.0\TaskTracker.Dal.Impl.Ef.pdb
+C:\Users\user\source\repos\TaskTracker\TaskTracker.Dal.Impl.Ef\bin\Debug\netstandard2.0\TaskTracker.Bll.Abstract.dll
+C:\Users\user\source\repos\TaskTracker\TaskTracker.Dal.Impl.Ef\bin\Debug\netstandard2.0\TaskTracker.Common.dll
+C:\Users\user\source\repos\TaskTracker\TaskTracker.Dal.Impl.Ef\bin\Debug\netstandard2.0\TaskTracker.Dto.dll
+C:\Users\user\source\repos\TaskTracker\TaskTracker.Dal.Impl.Ef\bin\Debug\netstandard2.0\TaskTracker.Messaging.Entities.dll
+C:\Users\user\source\repos\TaskTracker\TaskTracker.Dal.Impl.Ef\bin\Debug\netstandard2.0\TaskTracker.Common.pdb
+C:\Users\user\source\repos\TaskTracker\TaskTracker.Dal.Impl.Ef\bin\Debug\netstandard2.0\TaskTracker.Dto.pdb
+C:\Users\user\source\repos\TaskTracker\TaskTracker.Dal.Impl.Ef\bin\Debug\netstandard2.0\TaskTracker.Messaging.Entities.pdb
+C:\Users\user\source\repos\TaskTracker\TaskTracker.Dal.Impl.Ef\bin\Debug\netstandard2.0\TaskTracker.Bll.Abstract.pdb

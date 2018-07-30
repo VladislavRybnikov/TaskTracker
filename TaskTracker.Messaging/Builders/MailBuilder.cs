@@ -6,81 +6,96 @@ using TaskTracker.Messaging.Entities;
 namespace TaskTracker.Messaging.Builders
 {
     /// <summary>
-    /// Base mail entity builder implementation.
+    /// Base mail entity builder implementation.`
     /// </summary>
     public class MailBuilder : IMailBuilder
     {
-
-        public MailEntity Mail { get; private set; }
+        private MailEntity _mail;
 
         public MailBuilder()
         {
-            Mail = new MailEntity();
+            _mail = new MailEntity();
         }
 
-        public void AddAttachment(string path)
+        public IMailBuilder AddAttachment(string path)
         {
-            Mail.Data.Attachments.Add(path);
+            _mail.Data.Attachments.Add(path);
+            return this;
         }
 
-        public void AddAttacments(IEnumerable<string> attachments)
+        public IMailBuilder AddAttacments(IEnumerable<string> attachments)
         {
-            Mail.Data.Attachments.AddRange(attachments);
+            _mail.Data.Attachments.AddRange(attachments);
+            return this;
         }
 
-        public void AddAttacments(params string[] attachments)
+        public IMailBuilder AddFromMail(string fromMail)
         {
-            AddAttacments(attachments);
+            _mail.From = fromMail;
+            return this;
         }
 
-        public void AddFromMail(string fromMail)
+        public IMailBuilder AddFromName(string fromName)
         {
-            Mail.From = fromMail;
+            _mail.FromName = fromName;
+            return this;
         }
 
-        public void AddFromName(string fromName)
+        public IMailBuilder AddHtml(string html)
         {
-            Mail.FromName = fromName;
+            _mail.Data.IsHtml = true;
+            _mail.Data.Text = html;
+            return this;
         }
 
-        public void AddHtml(string html)
+        public IMailBuilder AddSubject(string subject)
         {
-            Mail.Data.IsHtml = true;
-            Mail.Data.Text = html;
+            _mail.Data.Subject = subject;
+            return this;
         }
 
-        public void AddSubject(string subject)
+        public IMailBuilder AddText(string text)
         {
-            Mail.Data.Subject = subject;
+            _mail.Data.IsHtml = false;
+            _mail.Data.Text = text;
+            return this;
         }
 
-        public void AddText(string text)
+        public IMailBuilder AddToMail(string toMail)
         {
-            Mail.Data.IsHtml = false;
-            Mail.Data.Text = text;
+            _mail.To = toMail;
+            return this;
         }
 
-        public void AddToMail(string toMail)
+        public IMailBuilder AddToName(string toName)
         {
-            Mail.To = toMail;
+            _mail.ToName = toName;
+            return this;
         }
 
-        public void AddToName(string toName)
+        public IMailBuilder AddSystemPart(SystemMailEntity systemPart)
         {
-            Mail.ToName = toName;
+            _mail.From = systemPart.From;
+            _mail.FromName = systemPart.FromName;
+            _mail.To = systemPart.To;
+            _mail.ToName = systemPart.ToName;
+            return this;
         }
 
-        public void AddSystemPart(SystemMailEntity systemPart)
+        public MailEntity Build()
         {
-            Mail.From = systemPart.From;
-            Mail.FromName = systemPart.FromName;
-            Mail.To = systemPart.To;
-            Mail.ToName = systemPart.ToName;
+            return _mail;
         }
 
-        public void Clear()
+        public IMailBuilder Clear()
         {
-            Mail = new MailEntity();
+            _mail = new MailEntity();
+            return this;
+        }
+
+        public IMailBuilder AddAttacments(params string[] attachments)
+        {
+            return AddAttacments(attachments);
         }
     }
 }

@@ -10,3 +10,11 @@ C:\Users\user\source\repos\TaskTracker\TaskTracker.Dal.Abstract\obj\Debug\netsta
 C:\Users\user\source\repos\TaskTracker\TaskTracker.Dal.Abstract\obj\Debug\netstandard2.0\TaskTracker.Dal.Abstract.csproj.CopyComplete
 C:\Users\user\source\repos\TaskTracker\TaskTracker.Dal.Abstract\obj\Debug\netstandard2.0\TaskTracker.Dal.Abstract.dll
 C:\Users\user\source\repos\TaskTracker\TaskTracker.Dal.Abstract\obj\Debug\netstandard2.0\TaskTracker.Dal.Abstract.pdb
+C:\Users\user\source\repos\TaskTracker\TaskTracker.Dal.Abstract\bin\Debug\netstandard2.0\TaskTracker.Bll.Abstract.dll
+C:\Users\user\source\repos\TaskTracker\TaskTracker.Dal.Abstract\bin\Debug\netstandard2.0\TaskTracker.Common.dll
+C:\Users\user\source\repos\TaskTracker\TaskTracker.Dal.Abstract\bin\Debug\netstandard2.0\TaskTracker.Dto.dll
+C:\Users\user\source\repos\TaskTracker\TaskTracker.Dal.Abstract\bin\Debug\netstandard2.0\TaskTracker.Messaging.Entities.dll
+C:\Users\user\source\repos\TaskTracker\TaskTracker.Dal.Abstract\bin\Debug\netstandard2.0\TaskTracker.Bll.Abstract.pdb
+C:\Users\user\source\repos\TaskTracker\TaskTracker.Dal.Abstract\bin\Debug\netstandard2.0\TaskTracker.Common.pdb
+C:\Users\user\source\repos\TaskTracker\TaskTracker.Dal.Abstract\bin\Debug\netstandard2.0\TaskTracker.Dto.pdb
+C:\Users\user\source\repos\TaskTracker\TaskTracker.Dal.Abstract\bin\Debug\netstandard2.0\TaskTracker.Messaging.Entities.pdb
