@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using TaskTracker.Mapping.Configuration.Base;
@@ -18,10 +19,18 @@ namespace TaskTracker.Mapping.Configuration
         {
             if (!IsConfigurated)
             {
-
+                Mapper.Initialize(cfg => 
+                {
+                    //TODO: Create maps;
+                });
             }
 
             IsConfigurated = true;
+        }
+
+        public void Reset()
+        {
+            Mapper.Reset();
         }
     }
 }

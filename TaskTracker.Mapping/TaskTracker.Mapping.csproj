@@ -5,11 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TaskTracker.Messaging.Entities\TaskTracker.Messaging.Entities.csproj" />
+    <PackageReference Include="AutoMapper" Version="7.0.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Dto\" />
+    <ProjectReference Include="..\TaskTracker.Dto\TaskTracker.Dto.csproj" />
+    <ProjectReference Include="..\TaskTracker.Entities\TaskTracker.Entities.csproj" />
+    <ProjectReference Include="..\TaskTracker.Messaging.Entities\TaskTracker.Messaging.Entities.csproj" />
+    <ProjectReference Include="..\TaskTracker.ViewModels\TaskTracker.ViewModels.csproj" />
   </ItemGroup>
 
 </Project>

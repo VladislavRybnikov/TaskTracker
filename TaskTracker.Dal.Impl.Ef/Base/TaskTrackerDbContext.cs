@@ -8,7 +8,7 @@ namespace TaskTracker.Dal.Impl.Ef.Base
 {
     internal class TaskTrackerDbContext : DbContext
     {
-        public TaskTrackerDbContext()
+        public TaskTrackerDbContext() : base("connectionInConfig")
         {
         }
 

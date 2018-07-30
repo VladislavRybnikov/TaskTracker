@@ -15,20 +15,21 @@ namespace TaskTracker.Bll.Impl.Messaging.Factory
     /// </summary>
     public class MessageFactory : IMessageTemplateFactory
     {
-        private static List<IMessageTemplate> _messageTemplates;
+        private static List<IMessageTemplate> _data;
         private static IMailBuilder _builder;
 
         public MessageFactory(IMailBuilder builder)
         {
             _builder = builder;
-            Initialize();
+
+            InitializeData();
         }
 
-        private static void Initialize()
+        private static void InitializeData()
         {
-            if (_messageTemplates == null)
+            if (_data == null)
             {
-                _messageTemplates = new List<IMessageTemplate>
+                _data = new List<IMessageTemplate>
                 {
                     new RegistrationTemplate(_builder),
                     new TaskDeadlineTemplate(),
@@ -44,7 +45,7 @@ namespace TaskTracker.Bll.Impl.Messaging.Factory
         /// <returns></returns>
         public IMessageTemplate GetMessageTemplate(MessageTemplateType type)
         {
-            return _messageTemplates
+            return _data
                 .Find(x => x.MessageType == type);
         }
     }

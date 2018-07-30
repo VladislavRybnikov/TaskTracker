@@ -42,7 +42,7 @@ namespace TaskTracker.Bll.Impl.Messaging.Templates
                  .Append(@"Welcome to TaskTracker!<br>
                     Thanks for your registration. 
                     Return to the site to update your information 
-                    and start work eith your tasks!
+                    and start work with your tasks!
                                 </div>
                                 <div class='base-button-container'>
                                     <a href='#...' class='base-button'>

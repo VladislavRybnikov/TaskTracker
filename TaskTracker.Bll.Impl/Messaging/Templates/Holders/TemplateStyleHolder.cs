@@ -7,6 +7,8 @@ namespace TaskTracker.Bll.Impl.Messaging.Templates
     public static class TemplateStyleHolder
     {
  
+        //TODO: Write template reader to get templates and styles from files.
+
         public static string DefaultStyle =>
             @"body
         {

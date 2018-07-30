@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using TaskTracker.Common.Results;
+using TaskTracker.Dto;
 
 namespace TaskTracker.Bll.Abstract.Services
 {
@@ -9,11 +11,13 @@ namespace TaskTracker.Bll.Abstract.Services
     {
         void UpdateWorkTaskProgressAsync();
         void CreateWorkTaskAsync();
-        void ChangeDescriptionAsync();
-        void AddPerformerAsync();
+        Task<Result> ChangeDescriptionAsync
+            (WorkTaskDto workTaskDto, string description);
+        Task<Result> AddPerformerAsync(WorkTaskDto workTaskDto,
+            WorkTaskUserDto performer);
         void ChangeManagerAsync();
-        void GetWorkTaskPointCountAsync();
-        void GetWorkTaskInfoForManagerAsync();
-        void GetWorkTaskInfoForPerformerAsync();
+        void GetWorkTaskAsync();
+        Task<DataResult<WorkTaskDto>> GetWorkTaskByNameAsync
+            (string name, WorkTaskUserDto manager);
     }
 }

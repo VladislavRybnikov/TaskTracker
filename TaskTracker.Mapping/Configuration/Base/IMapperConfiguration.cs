@@ -7,5 +7,6 @@ namespace TaskTracker.Mapping.Configuration.Base
     public interface IMapperConfiguration
     {
         void Configure();
+        void Reset();
     }
 }

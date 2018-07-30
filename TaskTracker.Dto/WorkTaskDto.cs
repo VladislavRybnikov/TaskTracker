@@ -4,7 +4,7 @@ using System.Text;
 
 namespace TaskTracker.Dto
 {
-    class WorkTaskWithInfoDto
+    public class WorkTaskDto
     {
     }
 }

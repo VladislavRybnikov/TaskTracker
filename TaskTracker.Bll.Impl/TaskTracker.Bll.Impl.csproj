@@ -5,11 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Services\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\TaskTracker.Bll.Abstract\TaskTracker.Bll.Abstract.csproj" />
+    <ProjectReference Include="..\TaskTracker.Dal.Abstract\TaskTracker.Dal.Abstract.csproj" />
+    <ProjectReference Include="..\TaskTracker.Dal.Impl.Ef\TaskTracker.Dal.Impl.Ef.csproj" />
     <ProjectReference Include="..\TaskTracker.Messaging\TaskTracker.Messaging.csproj" />
   </ItemGroup>
 
