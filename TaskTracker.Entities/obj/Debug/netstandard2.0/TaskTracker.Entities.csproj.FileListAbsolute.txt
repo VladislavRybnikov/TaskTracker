@@ -1,9 +1,0 @@
-C:\Users\user\source\repos\TaskTracker\TaskTracker.Entities\bin\Debug\netstandard2.0\TaskTracker.Entities.deps.json
-C:\Users\user\source\repos\TaskTracker\TaskTracker.Entities\bin\Debug\netstandard2.0\TaskTracker.Entities.dll
-C:\Users\user\source\repos\TaskTracker\TaskTracker.Entities\bin\Debug\netstandard2.0\TaskTracker.Entities.pdb
-C:\Users\user\source\repos\TaskTracker\TaskTracker.Entities\obj\Debug\netstandard2.0\TaskTracker.Entities.csprojAssemblyReference.cache
-C:\Users\user\source\repos\TaskTracker\TaskTracker.Entities\obj\Debug\netstandard2.0\TaskTracker.Entities.csproj.CoreCompileInputs.cache
-C:\Users\user\source\repos\TaskTracker\TaskTracker.Entities\obj\Debug\netstandard2.0\TaskTracker.Entities.AssemblyInfoInputs.cache
-C:\Users\user\source\repos\TaskTracker\TaskTracker.Entities\obj\Debug\netstandard2.0\TaskTracker.Entities.AssemblyInfo.cs
-C:\Users\user\source\repos\TaskTracker\TaskTracker.Entities\obj\Debug\netstandard2.0\TaskTracker.Entities.dll
-C:\Users\user\source\repos\TaskTracker\TaskTracker.Entities\obj\Debug\netstandard2.0\TaskTracker.Entities.pdb
