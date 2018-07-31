@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Text;
+using System.Threading.Tasks;
 using TaskTracker.Dal.Abstract.Repositories;
 using TaskTracker.Dal.Abstract.Uof;
 using TaskTracker.Dal.Impl.Ef.Repositories;
@@ -22,6 +23,9 @@ namespace TaskTracker.Dal.Impl.Ef.Uof
         private IWorkTaskCategoryRepository _workTaskCategoryRepository;
         private IUserContactsRepository _userContactsRepository;
         private ILocationRepository _locationRepository;
+        private IWorkTaskPointRepository _workTaskPointRepository;
+        private IWorkTaskPointProgressRepository 
+            _workTaskPointProgressRepository;
 
         public UnitOfWork(DbContext context)
         {
@@ -101,15 +105,36 @@ namespace TaskTracker.Dal.Impl.Ef.Uof
             get
             {
                 if (_userContactsRepository == null)
-                    _userContactsRepository = new UserContactsRepository(_context);
+                    _userContactsRepository 
+                        = new UserContactsRepository(_context);
 
                 return _userContactsRepository;
             }
         }
 
-        public IWorkTaskPointRepository WorkTaskPointRepository => throw new NotImplementedException();
+        public IWorkTaskPointRepository WorkTaskPointRepository
+        {
+            get
+            {
+                if (_workTaskPointRepository == null)
+                    _workTaskPointRepository 
+                        = new WorkTaskPointRepository(_context);
 
-        public IWorkTaskPointProgressRepository WorkTaskPointProgressRepository => throw new NotImplementedException();
+                return _workTaskPointRepository;
+            }
+        }
+
+        public IWorkTaskPointProgressRepository WorkTaskPointProgressRepository
+        {
+            get
+            {
+                if (_workTaskPointProgressRepository == null)
+                    _workTaskPointProgressRepository 
+                        = new WorkTaskPointProgressRepository(_context);
+
+                return _workTaskPointProgressRepository;
+            }
+        }
 
         protected virtual void Dispose(bool disposing)
         {
@@ -135,7 +160,7 @@ namespace TaskTracker.Dal.Impl.Ef.Uof
             _context.SaveChanges();
         }
 
-        public async void SaveChangesAsync()
+        public async Task SaveChangesAsync()
         {
             await _context.SaveChangesAsync();
         }

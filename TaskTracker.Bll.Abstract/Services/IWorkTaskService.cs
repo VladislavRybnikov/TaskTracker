@@ -7,17 +7,23 @@ using TaskTracker.Dto;
 
 namespace TaskTracker.Bll.Abstract.Services
 {
+    /// <summary>
+    /// Main service for WorkTasks. 
+    /// </summary>
     public interface IWorkTaskService
     {
-        void UpdateWorkTaskProgressAsync();
-        void CreateWorkTaskAsync();
+        Task<Result> UpdateWorkTaskProgressAsync(WorkTaskDto workTaskDto,
+            WorkTaskProgressDto progressDto);
+        Task<Result> CreateWorkTaskAsync(WorkTaskDto workTaskDto);
         Task<Result> ChangeDescriptionAsync
             (WorkTaskDto workTaskDto, string description);
         Task<Result> AddPerformerAsync(WorkTaskDto workTaskDto,
             WorkTaskUserDto performer);
-        void ChangeManagerAsync();
-        void GetWorkTaskAsync();
-        Task<DataResult<WorkTaskDto>> GetWorkTaskByNameAsync
+        Task<Result> ChangeManagerAsync(WorkTaskDto workTaskDto,
+            WorkTaskUserDto manager);
+        Task<DataResult<WorkTaskDto>> GetWorkTaskAsync
             (string name, WorkTaskUserDto manager);
+        Task<Result> AddWorkTaskPoint(WorkTaskDto workTaskDto,
+            WorkTaskPointDto workTaskPointDto);
     }
 }

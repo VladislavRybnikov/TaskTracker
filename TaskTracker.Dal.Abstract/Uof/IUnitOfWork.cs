@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using TaskTracker.Dal.Abstract.Repositories;
 using TaskTracker.Entities.Base;
 
@@ -23,6 +24,6 @@ namespace TaskTracker.Dal.Abstract.Uof
             where TEntity : BaseIntIdEntity;
 
         void SaveChanges();
-        void SaveChangesAsync();
+        Task SaveChangesAsync();
     }
 }
