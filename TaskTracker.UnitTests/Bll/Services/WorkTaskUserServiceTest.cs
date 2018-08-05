@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace TaskTracker.Dto
+namespace TaskTracker.UnitTests.Bll.Services
 {
-    public class WorkTaskPointProgressDto
+    class WorkTaskUserServiceTest
     {
     }
 }

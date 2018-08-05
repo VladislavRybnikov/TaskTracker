@@ -4,6 +4,7 @@ using System.Text;
 using TaskTracker.Dto;
 using TaskTracker.Entities;
 using TaskTracker.Mapping.Base;
+using TaskTracker.Mapping.Helpers;
 
 namespace TaskTracker.Mapping.Dto
 {
@@ -21,12 +22,12 @@ namespace TaskTracker.Mapping.Dto
 
         public IEnumerable<WorkTaskPoint> Map(IEnumerable<WorkTaskPointDto> from)
         {
-            throw new NotImplementedException();
+            return MapperHelper.TransformRange(from, Map);
         }
 
         public IEnumerable<WorkTaskPointDto> Map(IEnumerable<WorkTaskPoint> from)
         {
-            throw new NotImplementedException();
+            return MapperHelper.TransformRange(from, Map);
         }
     }
 }

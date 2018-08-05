@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TaskTracker.Dal.Abstract.Base;
@@ -10,61 +11,72 @@ namespace TaskTracker.UnitTests.Mock
 {
     public class MockGenericRepository<TEntity> 
         : IGenericRepository<TEntity> where TEntity : BaseIntIdEntity
-    { 
+    {
+        private MockData _mockData = new MockData();
+
         public void Add(TEntity entity)
         {
-            MockData.Get<TEntity>().Add(entity);
+            _mockData.Get<TEntity>().Add(entity);
         }
 
         public void Delete(TEntity entity)
         {
-            MockData.Get<TEntity>().Remove(entity);
+            _mockData.Get<TEntity>().Remove(entity);
         }
 
         public TEntity First(ISpecification<TEntity> specification)
         {
-            throw new NotImplementedException();
+            return _mockData.Get<TEntity>()
+                .Where(specification.Criteria.Compile())
+                .FirstOrDefault();
         }
 
-        public Task<TEntity> FirstAsync(ISpecification<TEntity> specification)
+        public async Task<TEntity> FirstAsync(ISpecification<TEntity> 
+            specification)
         {
-            throw new NotImplementedException();
+            return await Task.Run(() 
+                => _mockData.Get<TEntity>()
+                .FirstOrDefault(specification.Criteria.Compile()));
         }
 
         public IEnumerable<TEntity> GetAll()
         {
-            return MockData.Get<TEntity>();
+            return _mockData.Get<TEntity>();
         }
 
-        public IEnumerable<TEntity> GetAll(ISpecification<TEntity> specification)
+        public IEnumerable<TEntity> GetAll(ISpecification<TEntity> 
+            specification)
         {
-            throw new NotImplementedException();
+            return _mockData.Get<TEntity>()
+                .Where(specification.Criteria.Compile());
         }
 
-        public Task<IEnumerable<TEntity>> GetAllAsync()
+        public async Task<IEnumerable<TEntity>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await Task.Run(() => GetAll());
         }
 
-        public Task<IEnumerable<TEntity>> GetAllAsync(ISpecification<TEntity> specification)
+        public async Task<IEnumerable<TEntity>> GetAllAsync
+            (ISpecification<TEntity> specification)
         {
-            throw new NotImplementedException();
+            return await Task.Run(() => GetAll(specification));
         }
 
         public TEntity GetById(int id)
         {
-            return MockData.Get<TEntity>().Find(x => x.Id == id);
+            return _mockData.Get<TEntity>()
+                .Find(x => x.Id == id);
         }
 
-        public Task<TEntity> GetByIdAsync(int id)
+        public async Task<TEntity> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await Task.Run(() => GetById(id));
         }
 
         public void Update(TEntity entity)
         {
-            MockData.Get<TEntity>().RemoveAll(x => x.Id == entity.Id);
-            MockData.Get<TEntity>().Add(entity);
+            _mockData.Get<TEntity>().RemoveAll(x => x.Id == entity.Id);
+            _mockData.Get<TEntity>().Add(entity);
         }
     }
 }

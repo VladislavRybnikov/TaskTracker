@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace TaskTracker.Dto
+namespace TaskTracker.ViewModels.Json.Task
 {
-    public class WorkTaskPointDto
+    class WorkTaskPointViewModel
     {
         public string Name { get; set; }
         public string Description { get; set; }

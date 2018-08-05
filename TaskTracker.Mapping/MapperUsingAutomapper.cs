@@ -6,10 +6,10 @@ using TaskTracker.Mapping.Configuration.Base;
 
 namespace TaskTracker.Mapping
 {
-    public class GenericMapper
+    public class MapperUsingAutomapper
         : IGenericMapper
     { 
-        public GenericMapper(IMapperConfiguration config)
+        public MapperUsingAutomapper(IMapperConfiguration config)
         {
             config.Configure();
         }

@@ -11,7 +11,8 @@ namespace TaskTracker.Dal.Impl.Ef.Repositories
         : GenericRepository<WorkTaskPointProgress>,
         IWorkTaskPointProgressRepository
     {
-        public WorkTaskPointProgressRepository(DbContext context) : base(context)
+        public WorkTaskPointProgressRepository(DbContext context) 
+            : base(context)
         {
         }
     }

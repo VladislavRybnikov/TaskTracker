@@ -10,6 +10,7 @@ namespace TaskTracker.Dal.Impl.Ef.Repositories
     public class WorkTaskPointRepository 
         : GenericRepository<WorkTaskPoint>, IWorkTaskPointRepository
     {
-        public WorkTaskPointRepository(DbContext context) : base(context) { }
+        public WorkTaskPointRepository(DbContext context) 
+            : base(context) { }
     }
 }

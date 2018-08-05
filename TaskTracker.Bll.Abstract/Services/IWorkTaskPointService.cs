@@ -14,8 +14,7 @@ namespace TaskTracker.Bll.Abstract.Services
     public interface IWorkTaskPointService
     {
         Task<Result> ChangePointProgressAsync
-            (WorkTaskPointDto workTaskPointDto, 
-            WorkTaskPointProgressDto workTaskPointProgressDto);
+            (WorkTaskPointDto workTaskPointDto);
         Task<Result> CreateWorkTaskPointAsync(WorkTaskPointDto 
             workTaskPointDto);
     }

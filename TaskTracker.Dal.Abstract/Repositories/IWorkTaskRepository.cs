@@ -9,7 +9,7 @@ namespace TaskTracker.Dal.Abstract.Repositories
 {
     public interface IWorkTaskRepository : IGenericRepository<WorkTask>
     {
-        WorkTask GetWithMembers(int id);
-        Task<WorkTask> GetWithMembersAsync(int id);
+        Task<IEnumerable<WorkTask>> GetAllTasksByManagerIdAsync(int id);
+        Task<IEnumerable<WorkTask>> GetAllTasksByWorkerIdAsync(int id);
     }
 }

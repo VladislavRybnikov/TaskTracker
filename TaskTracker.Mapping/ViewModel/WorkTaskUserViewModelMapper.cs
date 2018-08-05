@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace TaskTracker.Dto
+namespace TaskTracker.Mapping.ViewModel
 {
-    public class WorkTaskProgressDto
+    class WorkTaskUserViewModelMapper
     {
     }
 }

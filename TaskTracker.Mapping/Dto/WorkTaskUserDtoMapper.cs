@@ -14,12 +14,42 @@ namespace TaskTracker.Mapping.Dto
     {
         public WorkTaskUser Map(WorkTaskUserDto from)
         {
-            throw new NotImplementedException();
+            return new WorkTaskUser
+            {
+                Name = from.Name,
+                FullName = from.FullName,
+                Info = from.Info,
+                AvatarPath = from.AvatarPath,
+                Role = from.Role,
+                Specialization = from.Specialization,
+                UserContacts = new UserContacts
+                {
+                    Mail = from.Mail,
+                    PhoneNumber = from.PhoneNumber,
+                    Location = new Location
+                    {
+                        Country = from.Country,
+                        City = from.City
+                    }
+                }
+            };
         }
 
         public WorkTaskUserDto Map(WorkTaskUser from)
         {
-            throw new NotImplementedException();
+            return new WorkTaskUserDto
+            {
+                Name = from.Name,
+                FullName = from.FullName,
+                Info = from.Info,
+                AvatarPath = from.AvatarPath,
+                Role = from.Role,
+                Specialization = from.Specialization,
+                Mail = from.UserContacts.Mail,
+                PhoneNumber = from.UserContacts.PhoneNumber,
+                City = from.UserContacts.Location.City,
+                Country = from.UserContacts.Location.Country
+            };
         }
 
         public IEnumerable<WorkTaskUser> Map(IEnumerable<WorkTaskUserDto> from)

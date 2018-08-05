@@ -14,5 +14,10 @@ namespace TaskTracker.Common.Results
 
         public DataResult(bool success, string message) 
             : base(success, message) { }
+
+        public Result ToResult()
+        {
+            return new Result(Success, Message);    
+        }
     }
 }

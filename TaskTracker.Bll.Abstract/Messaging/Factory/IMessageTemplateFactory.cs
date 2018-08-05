@@ -7,8 +7,11 @@ using TaskTracker.Messaging.Entities;
 
 namespace TaskTracker.Bll.Abstract.Messaging.Factory
 {
+    /// <summary>
+    /// Base interface for message template factory.
+    /// </summary>
     public interface IMessageTemplateFactory
     {
-        IMessageTemplate GetMessageTemplate(MessageTemplateType type);
+        IMessageTemplate GetMessageTemplate(MessageTemplateType type, object additional);
     }
 }

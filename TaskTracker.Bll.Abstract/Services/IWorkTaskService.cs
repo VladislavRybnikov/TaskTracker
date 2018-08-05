@@ -12,8 +12,6 @@ namespace TaskTracker.Bll.Abstract.Services
     /// </summary>
     public interface IWorkTaskService
     {
-        Task<Result> UpdateWorkTaskProgressAsync(WorkTaskDto workTaskDto,
-            WorkTaskProgressDto progressDto);
         Task<Result> CreateWorkTaskAsync(WorkTaskDto workTaskDto);
         Task<Result> ChangeDescriptionAsync
             (WorkTaskDto workTaskDto, string description);
@@ -22,8 +20,10 @@ namespace TaskTracker.Bll.Abstract.Services
         Task<Result> ChangeManagerAsync(WorkTaskDto workTaskDto,
             WorkTaskUserDto manager);
         Task<DataResult<WorkTaskDto>> GetWorkTaskAsync
-            (string name, WorkTaskUserDto manager);
+            (string name);
         Task<Result> AddWorkTaskPoint(WorkTaskDto workTaskDto,
             WorkTaskPointDto workTaskPointDto);
+        Task<Result> DeleteWorkTaskAsync(WorkTaskDto workTaskDto,
+            WorkTaskUserDto workTaskUserDto);
     }
 }

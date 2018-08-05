@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace TaskTracker.Dto
+namespace TaskTracker.ViewModels.Json.User
 {
-    public class WorkTaskUserDto
+    public class WorkTaskUserViewModel
     {
         public string Name { get; set; }
         public string FullName { get; set; }
@@ -13,7 +13,7 @@ namespace TaskTracker.Dto
         public string City { get; set; }
         public string Mail { get; set; }
         public string PhoneNumber { get; set; }
-        public byte Role { get; set; }
+        public string Role { get; set; }
         public string Specialization { get; set; }
         public string AvatarPath { get; set; }
     }

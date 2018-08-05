@@ -28,5 +28,12 @@ namespace TaskTracker.Dal.Impl.Ef.Repositories
 
             return await FirstAsync(specification);
         }
+
+        public async Task<WorkTaskUser> FindByMailAsync(string mail)
+        {
+            var specification = new UserWithContactsSpecification(mail);
+
+            return await FirstAsync(specification);
+        }
     }
 }

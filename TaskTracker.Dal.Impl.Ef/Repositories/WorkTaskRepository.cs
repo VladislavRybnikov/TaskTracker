@@ -14,18 +14,20 @@ namespace TaskTracker.Dal.Impl.Ef.Repositories
     {
         public WorkTaskRepository(DbContext context) : base(context){ }
 
-        public WorkTask GetWithMembers(int id)
+        public async Task<IEnumerable<WorkTask>> 
+            GetAllTasksByManagerIdAsync(int id)
         {
-            var specification = new WorkTaskWithMembersSpecification(id);
+            var specification = new TaskByManagerIdSpecification(id);
 
-            return First(specification);
+            return await GetAllAsync(specification);
         }
 
-        public async Task<WorkTask> GetWithMembersAsync(int id)
+        public async Task<IEnumerable<WorkTask>> 
+            GetAllTasksByWorkerIdAsync(int id)
         {
-            var specification = new WorkTaskWithMembersSpecification(id);
+            var specification = new TaskByPerformerIdSpecification(id);
 
-            return await FirstAsync(specification);
+            return await GetAllAsync(specification);
         }
     }
 }

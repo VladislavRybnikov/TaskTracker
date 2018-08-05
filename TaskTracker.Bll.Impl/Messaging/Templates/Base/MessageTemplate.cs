@@ -19,6 +19,10 @@ namespace TaskTracker.Bll.Impl.Messaging.Templates.Base
 
         public abstract MessageTemplateType MessageType { get; }
 
-        public abstract MailEntity GetMail(SystemMailEntity systemMail);
+        public abstract MailEntity GetMail(SystemMailEntity systemMail,
+            object additionalTemplateData);
+
+        protected abstract void SetAdditionalTemplateData
+            (object additionalTemplateData);
     }
 }

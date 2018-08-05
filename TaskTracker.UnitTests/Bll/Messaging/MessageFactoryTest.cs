@@ -5,6 +5,7 @@ using System.Text;
 using TaskTracker.Bll.Impl.Messaging.Factory;
 using TaskTracker.Bll.Impl.Messaging.Templates;
 using TaskTracker.Common.Enums;
+using TaskTracker.Dto;
 using TaskTracker.Messaging.Builders;
 using TaskTracker.Messaging.Entities;
 
@@ -16,17 +17,18 @@ namespace TaskTracker.UnitTests.Bll.Messaging
 
         [Test]
         [Category("Messaging")]
-        public void ReturnTaskStartTemplateByMessageTemplateType()
+        public void GetMessageTemplateReturnTaskStartTemplateEnumValue()
         {
             var enumValue
                 = MessageTemplateType.RegistrationConfirm;
 
-            var template = _factory.GetMessageTemplate(enumValue);
+            var template = _factory.GetMessageTemplate(enumValue, null);
             var templateType = template.GetType();
             TestContext.Out.WriteLine(template.GetMail
-                (new SystemMailEntity { ToName = "TEST"}).Data.Text);
+                (new SystemMailEntity { ToName = "TEST"}, null).Data.Text);
 
             Assert.AreEqual(templateType, typeof(RegistrationTemplate));
         }
+
     }
 }

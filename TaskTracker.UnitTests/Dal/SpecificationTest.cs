@@ -21,7 +21,7 @@ namespace TaskTracker.UnitTests.Dal
             => new Specification<TestEntity>(x => x.Value > 0);
 
         [Test]
-        [Category("Dal tests")]
+        [Category("Data access")]
         public void SpecificationCriteriaTest()
         {
             var spec = TestSpecification();

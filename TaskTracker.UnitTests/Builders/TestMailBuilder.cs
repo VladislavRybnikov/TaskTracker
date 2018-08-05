@@ -57,6 +57,23 @@ namespace TaskTracker.UnitTests.Builders
             return _mailMessage;
         }
 
+        public SystemMailEntity BuildSystemMailEntity
+            (
+            string from = _testFrom,
+            string fromName = _testFromName,
+            string to = _testTo,
+            string toName = _testToName
+            )
+        {
+            return new SystemMailEntity
+            {
+                From = from,
+                FromName = fromName,
+                To = to,
+                ToName = toName
+            };
+        }
+
         public MailEntity BuildMailEntity
             (
             string from = _testFrom,

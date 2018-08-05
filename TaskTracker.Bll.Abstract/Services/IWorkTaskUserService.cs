@@ -1,16 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
+using TaskTracker.Common.Results;
+using TaskTracker.Dto;
 
 namespace TaskTracker.Bll.Abstract.Services
 {
+    /// <summary>
+    /// Service for users CRUD.
+    /// </summary>
     public interface IWorkTaskUserService
     {
-        void CreateWorkTaskUserAsync();
-        void GetWorkTaskUserAsync();
-        void UpdateWorkTaskUserAsync();
-        void DeleteWorkTaskUserAsync();
-        void GetManagerWorkTasksCountAsync();
-        void GetPerformerWorkTasksCountAsync();
+        Task<Result> CreateWorkTaskUserAsync(WorkTaskUserDto
+            workTaskUserDto);
+        Task<Result> UpdateWorkTaskUserAsync(WorkTaskUserDto 
+            workTaskUserDto);
+        Task<Result> DeleteWorkTaskUserAsync(WorkTaskUserDto 
+            workTaskUserDto);
     }
 }

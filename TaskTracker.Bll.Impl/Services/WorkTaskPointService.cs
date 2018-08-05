@@ -8,19 +8,16 @@ using TaskTracker.Dto;
 
 namespace TaskTracker.Bll.Impl.Services
 {
-    public class WorkTaskUserService : IWorkTaskUserService
+    public class WorkTaskPointService : IWorkTaskPointService
     {
-        public Task<Result> CreateWorkTaskUserAsync(WorkTaskUserDto workTaskUserDto)
+        public Task<Result> ChangePointProgressAsync
+            (WorkTaskPointDto workTaskPointDto)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Result> DeleteWorkTaskUserAsync(WorkTaskUserDto workTaskUserDto)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Result> UpdateWorkTaskUserAsync(WorkTaskUserDto workTaskUserDto)
+        public Task<Result> CreateWorkTaskPointAsync
+            (WorkTaskPointDto workTaskPointDto)
         {
             throw new NotImplementedException();
         }

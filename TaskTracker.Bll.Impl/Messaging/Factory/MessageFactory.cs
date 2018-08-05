@@ -29,11 +29,11 @@ namespace TaskTracker.Bll.Impl.Messaging.Factory
         {
             if (_data == null)
             {
-                _data = new List<IMessageTemplate>
+                _data = new List<IMessageTemplate>  
                 {
                     new RegistrationTemplate(_builder),
-                    new TaskDeadlineTemplate(),
-                    new TaskStartTemplate()
+                    new TaskDeadlineTemplate(_builder),
+                    new TaskStartTemplate(_builder)
                 };
             }
         }
@@ -43,7 +43,8 @@ namespace TaskTracker.Bll.Impl.Messaging.Factory
         /// </summary>
         /// <param name="type">Template type.</param>
         /// <returns></returns>
-        public IMessageTemplate GetMessageTemplate(MessageTemplateType type)
+        public IMessageTemplate GetMessageTemplate(MessageTemplateType type,
+            object additionalTemplateData)
         {
             return _data
                 .Find(x => x.MessageType == type);

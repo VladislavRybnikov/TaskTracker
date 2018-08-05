@@ -15,7 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Bll\Services\" />
     <Folder Include="WebApi\" />
   </ItemGroup>
 

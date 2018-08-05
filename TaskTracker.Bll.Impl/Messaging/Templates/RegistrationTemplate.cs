@@ -9,6 +9,9 @@ using TaskTracker.Messaging.Entities;
 
 namespace TaskTracker.Bll.Impl.Messaging.Templates
 {
+    /// <summary>
+    /// Template for confirm registration.
+    /// </summary>
     public class RegistrationTemplate : MessageTemplate, IMessageTemplate
     {
         public RegistrationTemplate(IMailBuilder builder) : base(builder) { }
@@ -16,9 +19,17 @@ namespace TaskTracker.Bll.Impl.Messaging.Templates
         public override MessageTemplateType MessageType
             => MessageTemplateType.RegistrationConfirm;
 
-        public override MailEntity GetMail(SystemMailEntity systemMail)
+        /// <summary>
+        /// Get message content.
+        /// </summary>
+        /// <param name="systemMail">System mail part.</param>
+        /// <returns>MailEntity with all needed content for registration.</returns>
+        public override MailEntity GetMail(SystemMailEntity systemMail,
+            object additionalTemplateData = null)
         {
             StringBuilder htmlBuilder = new StringBuilder();
+
+            var subject = "TaskTracker Registration.";
 
             var html = htmlBuilder.Append
                 (@"<!DOCTYPE html>
@@ -61,10 +72,15 @@ namespace TaskTracker.Bll.Impl.Messaging.Templates
 
             return _builder
                 .AddSystemPart(systemMail)
-                .AddSubject("TaskTracker Registration.")
+                .AddSubject(subject)
                 .AddHtml(html)
                 .Build();
         }
 
+        protected override void SetAdditionalTemplateData
+            (object additionalTemplateData)
+        {
+            //There are no aditioanle data for this template now.
+        }
     }
 }

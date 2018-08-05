@@ -16,5 +16,11 @@ namespace TaskTracker.Dal.Impl.Ef.Specifications
                 $".{nameof(UserContacts.Location)}");
         }
 
+        public UserWithContactsSpecification(string mail) 
+            : base(u => u.UserContacts.Mail == mail)
+        {
+            AddInclude(u => u.UserContacts);
+        }
+
     }
 }
