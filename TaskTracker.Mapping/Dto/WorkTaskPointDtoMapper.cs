@@ -12,12 +12,39 @@ namespace TaskTracker.Mapping.Dto
     {
         public WorkTaskPoint Map(WorkTaskPointDto from)
         {
-            throw new NotImplementedException();
+            return new WorkTaskPoint
+            {
+                Name = from.Name,
+                Description = from.Description,
+                AttachmentPath = from.AttachmentPath,
+                WorkTaskPointProgress = new WorkTaskPointProgress
+                {
+                    ExecutedPercent = from.ExecutedPercent,
+                    PointSateDescripton = from.PointSateDescripton,
+                    PointState = from.PointState
+                }
+            };
         }
 
         public WorkTaskPointDto Map(WorkTaskPoint from)
         {
-            throw new NotImplementedException();
+            var result = new WorkTaskPointDto
+            {
+                Name = from.Name,
+                Description = from.Description,
+                AttachmentPath = from.AttachmentPath,
+            };
+
+            if (from.WorkTaskPointProgress != null)
+            {
+                result.ExecutedPercent = from.WorkTaskPointProgress
+                    .ExecutedPercent;
+                result.PointState = from.WorkTaskPointProgress.PointState;
+                result.PointSateDescripton = from.WorkTaskPointProgress
+                    .PointSateDescripton;
+            }
+
+            return result;
         }
 
         public IEnumerable<WorkTaskPoint> Map(IEnumerable<WorkTaskPointDto> from)

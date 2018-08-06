@@ -6,7 +6,7 @@ namespace TaskTracker.Common.Enums
 {
     public enum WorkTaskStage
     {
-        Created,
+        Created = 1,
         Confirmed,
         InProgress, 
         Finished

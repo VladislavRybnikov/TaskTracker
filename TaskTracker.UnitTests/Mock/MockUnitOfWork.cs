@@ -12,36 +12,43 @@ namespace TaskTracker.UnitTests.Mock
 {
     public class MockUnitOfWork : IUnitOfWork
     {
+        private readonly MockData _mockData;
+
+        public MockUnitOfWork(MockData mockData)
+        {
+            _mockData = mockData;
+        }
+
         public IWorkTaskRepository WorkTaskRepository 
-            => new MockWorkTaskRepository();
+            => new MockWorkTaskRepository(_mockData);
 
         public IWorkTaskUserRepository WorkTaskUserRepository 
-            => new MockWorkTaskUserRepository();
+            => new MockWorkTaskUserRepository(_mockData);
 
         public IWorkTaskCategoryRepository WorkTaskCategoryRepository 
-            => GenericRepository<WorkTaskCategory>() 
-            as IWorkTaskCategoryRepository;
+            => (IWorkTaskCategoryRepository)
+            GenericRepository<WorkTaskCategory>();
 
         public IWorkTaskDateInfoRepository WorkTaskDateInfoRepository 
-            => GenericRepository<WorkTaskDateInfo>() 
-            as IWorkTaskDateInfoRepository;
+            => (IWorkTaskDateInfoRepository)
+            GenericRepository<WorkTaskDateInfo>();
 
         public IWorkTaskProgressRepository WorkTaskProgressRepository 
-            => GenericRepository<WorkTaskProgress>() 
-            as IWorkTaskProgressRepository;
+            => (IWorkTaskProgressRepository)
+            GenericRepository<WorkTaskProgress>();
 
         public ILocationRepository LocationRepository 
-            => GenericRepository<Location>() as ILocationRepository;
+            => (ILocationRepository)GenericRepository<Location>();
 
         public IUserContactsRepository UserContactsRepository 
-            => GenericRepository<UserContacts>() as IUserContactsRepository;
+            => (IUserContactsRepository)GenericRepository<UserContacts>();
 
         public IWorkTaskPointRepository WorkTaskPointRepository 
-            => GenericRepository<WorkTaskPoint>() as IWorkTaskPointRepository;
+            => new MockWorkTaskPointRepository(_mockData);
 
         public IWorkTaskPointProgressRepository WorkTaskPointProgressRepository 
-            => GenericRepository<WorkTaskPointProgress>() 
-            as IWorkTaskPointProgressRepository;
+            => (IWorkTaskPointProgressRepository)
+            GenericRepository<WorkTaskPointProgress>();
 
         public void Dispose()
         {
@@ -51,7 +58,7 @@ namespace TaskTracker.UnitTests.Mock
         public IGenericRepository<TEntity> GenericRepository<TEntity>()
             where TEntity : BaseIntIdEntity
         {
-            return new MockGenericRepository<TEntity>();
+            return new MockGenericRepository<TEntity>(_mockData);
         }
 
         public void SaveChanges()
@@ -62,7 +69,7 @@ namespace TaskTracker.UnitTests.Mock
         public Task SaveChangesAsync()
         {
             //Mock object.
-            return Task.Run(() => { SaveChanges(); });
+            return Task.Run(() => {});
         }
     }
 }

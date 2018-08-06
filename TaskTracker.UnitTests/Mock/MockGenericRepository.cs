@@ -14,6 +14,11 @@ namespace TaskTracker.UnitTests.Mock
     {
         private MockData _mockData = new MockData();
 
+        public MockGenericRepository(MockData mockData)
+        {
+            _mockData = mockData;
+        }
+
         public void Add(TEntity entity)
         {
             _mockData.Get<TEntity>().Add(entity);

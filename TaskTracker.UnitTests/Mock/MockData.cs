@@ -93,6 +93,8 @@ namespace TaskTracker.UnitTests.Mock
                             },
                             Name = "Bob",
                             Role = 1,
+                            WorkTasks = new List<WorkTask>()
+                            
                         },
                         new WorkTaskUser
                         {
@@ -111,6 +113,7 @@ namespace TaskTracker.UnitTests.Mock
                             },
                             Name = "Jhon",
                             Role = 2,
+                            WorkTasks = new List<WorkTask>()
                         },
                     }
 
@@ -151,7 +154,10 @@ namespace TaskTracker.UnitTests.Mock
                                 Id = 1,
                                 WorkTaskState = 1,
                                 ExecutedPercent = 0
-                            }
+                            },
+
+                            Performers = new List<WorkTaskUser>(),
+                            WorkTaskPoints = new List<WorkTaskPoint>()
                         },
                         new WorkTask
                         {
@@ -186,8 +192,17 @@ namespace TaskTracker.UnitTests.Mock
                                 Id = 1,
                                 WorkTaskState = 1,
                                 ExecutedPercent = 0
-                            }
+                            },
+                            Performers = new List<WorkTaskUser>(),
+                            WorkTaskPoints = new List<WorkTaskPoint>()
+
                         }
+                    }
+                },
+                {
+                    typeof(WorkTaskPoint), new List<WorkTaskPoint>()
+                    {
+                        
                     }
                 }
             };

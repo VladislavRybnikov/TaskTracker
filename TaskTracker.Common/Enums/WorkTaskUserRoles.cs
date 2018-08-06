@@ -6,7 +6,7 @@ namespace TaskTracker.Common.Enums
 {
     public enum WorkTaskUserRoles
     {
-        TaskManager,
-        TaskPerformer
+        TaskPerformer = 1,
+        TaskManager
     }
 }

@@ -27,6 +27,7 @@ namespace TaskTracker.Mapping.Dto
                     WorkTaskState = from.WorkTaskState,
                     ExecutedPercent = from.ExecutedPercent
                 }
+
             };
         }
 

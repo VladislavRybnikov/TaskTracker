@@ -53,22 +53,15 @@ namespace TaskTracker.Bll.Impl.Services
         {
             Result methodResult = new Result(); 
 
-            var taskEntity = _workTaskDtoMapper.Map(workTaskDto);
-
             var findedTask = await _unitOfWork.WorkTaskRepository
                 .FirstAsync(new Specification<WorkTask>(x 
-                => x.Name == taskEntity.Name 
-                && x.DateInfo.CreationDate == taskEntity.DateInfo.CreationDate 
-                && x.Manager.UserContacts.Mail 
-                == taskEntity.Manager.UserContacts.Mail));
+                => x.Name == workTaskDto.Name));
 
             if (findedTask != null)
             {
-                var userEntity = _workTaskUserDtoMapper.Map(performer);
-
                 var findedUser = await _unitOfWork.WorkTaskUserRepository
                     .FirstAsync(new Specification<WorkTaskUser>(x => x.UserContacts.Mail
-                    == userEntity.UserContacts.Mail));
+                    == performer.Mail));
 
                 bool ifUserExist = findedUser != null;
 
@@ -82,16 +75,13 @@ namespace TaskTracker.Bll.Impl.Services
                 }
                 else
                 {
-                    userEntity.WorkTasks.Add(findedTask);
-                    findedTask.Performers.Add(userEntity);
-
-                    _unitOfWork.WorkTaskUserRepository.Add(userEntity);
-                    _unitOfWork.WorkTaskRepository.Update(findedTask);
+                    methodResult.Success = false;
+                    methodResult.Message = "User not found.";
                     
                 }
                 methodResult.Success = true;
-                methodResult.Message = $"Added performer: {userEntity.Name}" +
-                    $" to Task: {taskEntity.Name}.";
+                methodResult.Message = $"Added performer(Name: {performer.Name})" +
+                    $" to work task(Name: {workTaskDto.Name}).";
 
                 await _unitOfWork.SaveChangesAsync();
             }
@@ -109,19 +99,15 @@ namespace TaskTracker.Bll.Impl.Services
         /// <param name="workTaskDto"> WorkTask information</param>
         /// <param name="workTaskPointDto"> WorkTaskPoint information</param>
         /// <returns></returns>
-        public async Task<Result> AddWorkTaskPoint(WorkTaskDto workTaskDto,
+        public async Task<Result> AddWorkTaskPointAsync(WorkTaskDto workTaskDto,
             WorkTaskPointDto workTaskPointDto)
         {
             Result methodResult = new Result();
 
-            var taskEntity = _workTaskDtoMapper.Map(workTaskDto);
-
             var findedTask = await _unitOfWork.WorkTaskRepository
                 .FirstAsync(new Specification<WorkTask>(x
-                => x.Name == taskEntity.Name
-                && x.DateInfo.CreationDate == taskEntity.DateInfo.CreationDate
-                && x.Manager.UserContacts.Mail
-                == taskEntity.Manager.UserContacts.Mail));
+                => x.Name == workTaskDto.Name
+                && x.DateInfo.CreationDate == workTaskDto.CreationDate));
 
             if (findedTask != null)
             {
@@ -137,10 +123,15 @@ namespace TaskTracker.Bll.Impl.Services
                     findedTask.WorkTaskPoints.Add(pointEntity);
 
                     _unitOfWork.WorkTaskRepository.Update(findedTask);
+
+                    methodResult.Message = $"Added new work " +
+                        $"task point({pointEntity.Name})" +
+                        $"to work task({findedTask.Name})";
+                    methodResult.Success = true;
                 }
                 else
                 {
-                    _unitOfWork.WorkTaskPointRepository.Add(pointEntity);
+                    methodResult.Message = "Task not found.";
                 }
 
                 await _unitOfWork.SaveChangesAsync();
@@ -164,14 +155,9 @@ namespace TaskTracker.Bll.Impl.Services
         {
             Result methodResult = new Result();
 
-            var taskEntity = _workTaskDtoMapper.Map(workTaskDto);
-
             var findedTask = await _unitOfWork.WorkTaskRepository
                .FirstAsync(new Specification<WorkTask>(x
-               => x.Name == taskEntity.Name
-               && x.DateInfo.CreationDate == taskEntity.DateInfo.CreationDate
-               && x.Manager.UserContacts.Mail
-               == taskEntity.Manager.UserContacts.Mail));
+               => x.Name == workTaskDto.Name));
 
             if (findedTask != null)
             {
@@ -211,19 +197,17 @@ namespace TaskTracker.Bll.Impl.Services
                 => x.Name == taskEntity.Name
                 && x.DateInfo.CreationDate == taskEntity.DateInfo.CreationDate
                 && x.Manager.UserContacts.Mail
-                == taskEntity.Manager.UserContacts.Mail));
+                == manager.Mail));
 
             if (findedTask != null)
             {
-                var userEntity = _workTaskUserDtoMapper.Map(manager);
-
                 var findedUser = await _unitOfWork.WorkTaskUserRepository
                     .FirstAsync(new Specification<WorkTaskUser>(x => x.UserContacts.Mail
-                    == userEntity.UserContacts.Mail));
+                    == manager.Mail));
 
-                bool ifUserExist = findedUser != null;
+                bool userExist = findedUser != null;
 
-                if (ifUserExist)
+                if (userExist)
                 {
                     findedUser.WorkTasks.Add(findedTask);
                     findedTask.Manager = findedUser;
@@ -233,15 +217,13 @@ namespace TaskTracker.Bll.Impl.Services
                 }
                 else
                 {
-                    userEntity.WorkTasks.Add(findedTask);
-                    findedTask.Manager = userEntity;
+                    methodResult.Success = false;
+                    methodResult.Message = "User not found.";
 
-                    _unitOfWork.WorkTaskUserRepository.Add(userEntity);
-                    _unitOfWork.WorkTaskRepository.Update(findedTask);
-
+                    return methodResult;
                 }
                 methodResult.Success = true;
-                methodResult.Message = $"Added manager: {userEntity.Name}" +
+                methodResult.Message = $"Added manager: {manager.Name}" +
                     $" to Task: {taskEntity.Name}.";
 
                 await _unitOfWork.SaveChangesAsync();
@@ -259,51 +241,95 @@ namespace TaskTracker.Bll.Impl.Services
         /// </summary>
         /// <param name="workTaskDto">WorkTask information</param>
         /// <returns></returns>
-        public async Task<Result> CreateWorkTaskAsync(WorkTaskDto workTaskDto)
+        public async Task<Result> CreateWorkTaskAsync(WorkTaskDto workTaskDto,
+            WorkTaskUserDto manager)
         {
             Result methodResult = new Result();
 
-            var taskEntity = _workTaskDtoMapper.Map(workTaskDto);
+            var findedUser =
+                await _unitOfWork.WorkTaskUserRepository
+                .FindByMailAsync(manager.Mail);
 
-            await Task.Run(() =>
+            if (findedUser != null)
             {
-                try
+                if (findedUser.Role != (int)WorkTaskUserRoles.TaskManager)
                 {
-                    _unitOfWork.WorkTaskRepository.Add(taskEntity);
+                    methodResult.Message = "User are not a manager.";
+                    return methodResult;
                 }
-                catch (Exception ex)
+
+                var allManagerTasks = await _unitOfWork.WorkTaskRepository
+                    .GetAllTasksByManagerIdAsync(findedUser.Id);
+
+
+                var taskExist = allManagerTasks
+                    .FirstOrDefault(x => x.Name == workTaskDto.Name)
+                    != null;
+
+                if (taskExist)
                 {
-                    methodResult.Success = false;
-                    methodResult.Message = ex.Message;
+                    methodResult.Message 
+                        = "Task with such name already exist.";
+                    return methodResult;
                 }
-            });
+                
+                var taskEntity = _workTaskDtoMapper.Map(workTaskDto);
 
-            await _unitOfWork.SaveChangesAsync();
+                await Task.Run(() =>
+                {
+                    try
+                    {
+                        _unitOfWork.WorkTaskRepository.Add(taskEntity);
+                    }
+                    catch (Exception ex)
+                    {
+                        methodResult.Success = false;
+                        methodResult.Message = ex.Message;
+                    }
+                });
 
-            return methodResult;
+                await _unitOfWork.SaveChangesAsync();
+
+                methodResult.Success = true;
+                methodResult.Message = $"Manager({manager.Name}) " +
+                    $"created Task({workTaskDto.Name})";
+                return methodResult;
+            }
+            else
+            {
+                methodResult.Message = "User not found.";
+                return methodResult;
+            }
+            
         }
 
         /// <summary>
         /// Delete WorkTask by WorkTaskManager.
         /// </summary>
         /// <param name="workTaskDto"> WorkTask information</param>
-        /// <param name="workTaskUserDto"> WorkTaskUser information</param>
+        /// <param name="manager"> WorkTaskUser information</param>
         /// <returns></returns>
         public async Task<Result> DeleteWorkTaskAsync(WorkTaskDto workTaskDto,
-            WorkTaskUserDto workTaskUserDto)
+            WorkTaskUserDto manager)
         {
             var result = new Result();
 
             var findedUser = await _unitOfWork
-                .WorkTaskUserRepository.FindByMailAsync(workTaskUserDto.Mail);
+                .WorkTaskUserRepository.FindByMailAsync(manager.Mail);
 
             var findedTask = await _unitOfWork.WorkTaskRepository
                 .FirstAsync(new Specification<WorkTask>(x => x.Name 
-                == "dtoName"));
+                == workTaskDto.Name));
+
+            if(findedUser == null)
+            {
+                result.Message = "User not found";
+                return result;
+            }
 
             if(findedUser.Role != (int)WorkTaskUserRoles.TaskManager)
             {
-                result.Message = $"User: {findedUser.Name} " +
+                result.Message = $"User({findedUser.Name})" +
                     $"- is not a manager.";
                 return result;
             }
@@ -319,14 +345,14 @@ namespace TaskTracker.Bll.Impl.Services
                 _unitOfWork.WorkTaskRepository.Delete(findedTask);
                 await _unitOfWork.SaveChangesAsync();
 
-                result.Message = $"Work task: {findedTask.Name}, " +
-                    $"deleted by user: {findedUser.Name}";
+                result.Message = $"Work task({findedTask.Name}), " +
+                    $"deleted by user({findedUser.Name})";
                 result.Success = true;
             }
             else
             {
-                result.Message = result.Message = $"User: {findedUser.Name} " +
-                    $"- is not a manager of work task: {findedTask.Name}.";
+                result.Message = result.Message = $"User({findedUser.Name})" +
+                    $"- is not a manager of work task({findedTask.Name}).";
             }
 
             return result;

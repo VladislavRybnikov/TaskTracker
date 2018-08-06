@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using TaskTracker.Dal.Abstract.Repositories;
+using TaskTracker.Dal.Impl.Ef.Specifications;
 using TaskTracker.Entities;
 
 namespace TaskTracker.UnitTests.Mock.Repositories
@@ -10,9 +11,15 @@ namespace TaskTracker.UnitTests.Mock.Repositories
     public class MockWorkTaskUserRepository
         : MockGenericRepository<WorkTaskUser>, IWorkTaskUserRepository
     {
-        public Task<WorkTaskUser> FindByMailAsync(string mail)
+        public MockWorkTaskUserRepository(MockData mockData) : base(mockData)
         {
-            throw new NotImplementedException();
+        }
+
+        public async Task<WorkTaskUser> FindByMailAsync(string mail)
+        {
+            return await FirstAsync
+                (new Specification<WorkTaskUser>(x 
+                => x.UserContacts.Mail == mail));
         }
 
         public WorkTaskUser GetWithContacts(int id)

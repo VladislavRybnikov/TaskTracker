@@ -6,7 +6,7 @@ namespace TaskTracker.Common.Enums
 {
     public enum MessageTemplateType
     {
-        RegistrationConfirm,
+        RegistrationConfirm = 1,
         TaskDeadlineNotification,
         TaskStartNotification
     }
