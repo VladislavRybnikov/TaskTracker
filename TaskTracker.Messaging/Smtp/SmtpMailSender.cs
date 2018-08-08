@@ -25,19 +25,21 @@ namespace TaskTracker.Messaging.Smtp
 
 
         public SmtpMailSender(IMailEntityToMailMessageMapper mapper, 
-            SmtpConfiguration config)
+            ISmtpConfiguration config)
         {
             _mapper = mapper;
             InitializeSmtp(config);
         }
 
         //Initialize SmtpClient using SmtpConfiguration. 
-        private void InitializeSmtp(SmtpConfiguration configuration)
+        private void InitializeSmtp(ISmtpConfiguration configuration)
         {
             SmtpClient smtpClient = new SmtpClient
                     (configuration.SmtpProvider)
             {
                 Port = configuration.Port,
+                UseDefaultCredentials = false,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
                 Credentials = new NetworkCredential
                     (configuration.MailAddress, configuration.Password),
                 EnableSsl = configuration.EnableSsl

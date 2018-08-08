@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TaskTracker.Bll.Abstract.Services;
+using TaskTracker.Bll.Impl.Services.Base;
 using TaskTracker.Common.Enums;
 using TaskTracker.Common.Results;
 using TaskTracker.Dal.Abstract.Uof;
@@ -18,9 +19,8 @@ namespace TaskTracker.Bll.Impl.Services
     /// Service that provides access to WorkTask's data.
     /// CRUD operations. 
     /// </summary>
-    public class WorkTaskService : IWorkTaskService
+    public class WorkTaskService : UnitOfWorkBasedService, IWorkTaskService
     {
-        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper<WorkTaskUser, WorkTaskUserDto>
             _workTaskUserDtoMapper;
         private readonly IMapper<WorkTask, WorkTaskDto> _workTaskDtoMapper;
@@ -34,9 +34,8 @@ namespace TaskTracker.Bll.Impl.Services
             IMapper<WorkTaskUser, WorkTaskUserDto> workTaskUserDtoMapper, 
             IMapper<WorkTask, WorkTaskDto> workTaskDtoMapper,
             IMapper<WorkTaskPoint, WorkTaskPointDto> workTaskPointDtoMapper
-            )
+            ) : base(unitOfWork)
         {
-            _unitOfWork = unitOfWork;
             _workTaskUserDtoMapper = workTaskUserDtoMapper;
             _workTaskPointDtoMapper = workTaskPointDtoMapper;
             _workTaskDtoMapper = workTaskDtoMapper;
@@ -60,8 +59,7 @@ namespace TaskTracker.Bll.Impl.Services
             if (findedTask != null)
             {
                 var findedUser = await _unitOfWork.WorkTaskUserRepository
-                    .FirstAsync(new Specification<WorkTaskUser>(x => x.UserContacts.Mail
-                    == performer.Mail));
+                    .FindByMailAsync(performer.Mail);
 
                 bool ifUserExist = findedUser != null;
 
@@ -106,8 +104,7 @@ namespace TaskTracker.Bll.Impl.Services
 
             var findedTask = await _unitOfWork.WorkTaskRepository
                 .FirstAsync(new Specification<WorkTask>(x
-                => x.Name == workTaskDto.Name
-                && x.DateInfo.CreationDate == workTaskDto.CreationDate));
+                => x.Name == workTaskDto.Name));
 
             if (findedTask != null)
             {
@@ -194,21 +191,35 @@ namespace TaskTracker.Bll.Impl.Services
 
             var findedTask = await _unitOfWork.WorkTaskRepository
                 .FirstAsync(new Specification<WorkTask>(x
-                => x.Name == taskEntity.Name
-                && x.DateInfo.CreationDate == taskEntity.DateInfo.CreationDate
-                && x.Manager.UserContacts.Mail
-                == manager.Mail));
+                => x.Name == taskEntity.Name));
 
             if (findedTask != null)
             {
                 var findedUser = await _unitOfWork.WorkTaskUserRepository
-                    .FirstAsync(new Specification<WorkTaskUser>(x => x.UserContacts.Mail
-                    == manager.Mail));
+                    .FindByMailAsync(manager.Mail);
 
                 bool userExist = findedUser != null;
 
                 if (userExist)
                 {
+                    if (findedUser.Role != (int)WorkTaskUserRoles.TaskManager)
+                    {
+                        methodResult.Message = "User not a manager.";
+                        return methodResult;
+                    }
+
+                    var allManagerTask = await _unitOfWork.WorkTaskRepository
+                        .GetAllTasksByManagerIdAsync(findedUser.Id);
+
+                    bool taskManagedByUser = allManagerTask.FirstOrDefault
+                        (x => x.Id == findedTask.Id) != null;
+
+                    if (!taskManagedByUser)
+                    {
+                        methodResult.Message = "Task not managed by current User.";
+                        return methodResult;
+                    }
+
                     findedUser.WorkTasks.Add(findedTask);
                     findedTask.Manager = findedUser;
 
@@ -388,5 +399,59 @@ namespace TaskTracker.Bll.Impl.Services
             return methodResult;
         }
 
+        public async Task<Result> UpdateWorkTaskAsync(WorkTaskDto workTaskDto,
+            WorkTaskUserDto manager)
+        {
+            var result = new Result();
+
+            var findedUser = await _unitOfWork
+                .WorkTaskUserRepository.FindByMailAsync(manager.Mail);
+
+            var findedTask = await _unitOfWork.WorkTaskRepository
+                .FirstAsync(new Specification<WorkTask>(x => x.Name
+                == workTaskDto.Name));
+
+            if (findedUser == null)
+            {
+                result.Message = "User not found";
+                return result;
+            }
+
+            if (findedUser.Role != (int)WorkTaskUserRoles.TaskManager)
+            {
+                result.Message = $"User({findedUser.Name})" +
+                    $"- is not a manager.";
+                return result;
+            }
+
+            var managedTasks = await _unitOfWork.WorkTaskRepository
+                   .GetAllTasksByManagerIdAsync(findedUser.Id);
+
+            bool isManagerOfCurrentTask = managedTasks
+                .FirstOrDefault(x => x.Id == findedTask.Id) != null;
+
+            if (isManagerOfCurrentTask)
+            {
+                if (!string.IsNullOrEmpty(workTaskDto.Name))
+                    findedTask.Name = workTaskDto.Name;
+
+                if (!string.IsNullOrEmpty(workTaskDto.Description))
+                    findedTask.Description = workTaskDto.Description;
+
+                _unitOfWork.WorkTaskRepository.Update(findedTask);
+                await _unitOfWork.SaveChangesAsync();
+
+                result.Message = $"Work task({findedTask.Name}), " +
+                    $"deleted by user({findedUser.Name})";
+                result.Success = true;
+            }
+            else
+            {
+                result.Message = result.Message = $"User({findedUser.Name})" +
+                    $"- is not a manager of work task({findedTask.Name}).";
+            }
+
+            return result;
+        }
     }
 }

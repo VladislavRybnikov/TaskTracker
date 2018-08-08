@@ -26,5 +26,7 @@ namespace TaskTracker.Bll.Abstract.Services
             WorkTaskPointDto workTaskPointDto);
         Task<Result> DeleteWorkTaskAsync(WorkTaskDto workTaskDto,
             WorkTaskUserDto workTaskUserDto);
+        Task<Result> UpdateWorkTaskAsync(WorkTaskDto workTaskDto,
+            WorkTaskUserDto manager);
     }
 }

@@ -47,6 +47,27 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin.Hosting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Hosting.4.0.0\lib\net451\Microsoft.Owin.Hosting.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Testing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Testing.4.0.0\lib\net451\Microsoft.Owin.Testing.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject, Version=3.3.4.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.3.3.4\lib\net45\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Web.Common, Version=3.3.1.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.Web.Common.3.3.1\lib\net45\Ninject.Web.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Web.Common.WebHost, Version=3.3.1.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.Web.Common.WebHost.3.3.1\lib\net45\Ninject.Web.Common.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Web.WebApi, Version=3.3.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.Web.WebApi.3.3.0\lib\net45\Ninject.Web.WebApi.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Web.WebApi.WebHost, Version=3.3.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.Web.WebApi.WebHost.3.3.0\lib\net45\Ninject.Web.WebApi.WebHost.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -108,6 +129,12 @@
     <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebActivatorEx.2.2.0\lib\net40\WebActivatorEx.dll</HintPath>
+    </Reference>
+    <Reference Include="WebApiContrib.IoC.Ninject, Version=0.9.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebApiContrib.IoC.Ninject.0.9.3.0\lib\net40\WebApiContrib.IoC.Ninject.dll</HintPath>
     </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
@@ -202,6 +229,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="App_Start\Ninject.Web.Common.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
@@ -235,8 +263,9 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="Controllers\UsersAccountController.cs" />
     <Compile Include="Controllers\WorkTaskController.cs" />
+    <Compile Include="Controllers\WorkTaskUserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -338,6 +367,40 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TaskTracker.Bll.Abstract\TaskTracker.Bll.Abstract.csproj">
+      <Project>{EF780A4F-DC20-4CC6-BEFE-C1C1F55E0A8F}</Project>
+      <Name>TaskTracker.Bll.Abstract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TaskTracker.Bll.Impl\TaskTracker.Bll.Impl.csproj">
+      <Project>{C9792764-4C42-420E-BA8E-1927CA376A4E}</Project>
+      <Name>TaskTracker.Bll.Impl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TaskTracker.Common\TaskTracker.Common.csproj">
+      <Project>{7D9F268D-66EC-4586-A74C-E017B1A36FAF}</Project>
+      <Name>TaskTracker.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TaskTracker.Dto\TaskTracker.Dto.csproj">
+      <Project>{B30A9D86-CDFA-4781-B7F4-AC2002F85920}</Project>
+      <Name>TaskTracker.Dto</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TaskTracker.Mapping\TaskTracker.Mapping.csproj">
+      <Project>{ED52C5F7-4BFE-477F-A856-D81979098D0C}</Project>
+      <Name>TaskTracker.Mapping</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TaskTracker.Messaging.Entities\TaskTracker.Messaging.Entities.csproj">
+      <Project>{E205D959-8B24-44C6-8457-AD43DBD56A2A}</Project>
+      <Name>TaskTracker.Messaging.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TaskTracker.Messaging\TaskTracker.Messaging.csproj">
+      <Project>{4638F858-4417-43E5-9ED7-418CC9331CA2}</Project>
+      <Name>TaskTracker.Messaging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TaskTracker.ViewModels\TaskTracker.ViewModels.csproj">
+      <Project>{A5330D9E-68C3-4972-B8B7-A8999B908D52}</Project>
+      <Name>TaskTracker.ViewModels</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

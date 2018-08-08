@@ -4,7 +4,7 @@ using System.Text;
 
 namespace TaskTracker.Common.Configuration.Smtp
 {
-    public class SmtpConfiguration
+    public class SmtpConfiguration : ISmtpConfiguration
     {
         public string SmtpProvider { get; set; }
         public int Port { get; set; }

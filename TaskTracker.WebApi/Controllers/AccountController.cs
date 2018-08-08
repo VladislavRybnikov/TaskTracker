@@ -13,6 +13,11 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
+using TaskTracker.Bll.Abstract.Services;
+using TaskTracker.Common.Results;
+using TaskTracker.Dto;
+using TaskTracker.ViewModels.Json.Auth;
+using TaskTracker.ViewModels.Json.User;
 using TaskTracker.WebApi.Models;
 using TaskTracker.WebApi.Providers;
 using TaskTracker.WebApi.Results;
@@ -25,6 +30,7 @@ namespace TaskTracker.WebApi.Controllers
     {
         private const string LocalLoginProvider = "Local";
         private ApplicationUserManager _userManager;
+        private readonly IWorkTaskUserService userService;
 
         public AccountController()
         {
@@ -41,7 +47,8 @@ namespace TaskTracker.WebApi.Controllers
         {
             get
             {
-                return _userManager ?? Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                return _userManager ?? Request.GetOwinContext()
+                    .GetUserManager<ApplicationUserManager>();
             }
             private set
             {
@@ -321,7 +328,7 @@ namespace TaskTracker.WebApi.Controllers
         // POST api/Account/Register
         [AllowAnonymous]
         [Route("Register")]
-        public async Task<IHttpActionResult> Register(RegisterBindingModel model)
+        public async Task<IHttpActionResult> Register(RegisterUserViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -336,6 +343,27 @@ namespace TaskTracker.WebApi.Controllers
             {
                 return GetErrorResult(result);
             }
+
+            byte role = 1; 
+
+            if (model.Role == "manager")
+            {
+                role = 2;
+            }
+
+            WorkTaskUserDto workTaskUserDto = new WorkTaskUserDto
+            {
+                Name = model.Name,
+                FullName = model.FullName,
+                Mail = model.Email,
+                Role = role
+            };
+
+            var creationResult = await userService.CreateWorkTaskUserAsync
+                (workTaskUserDto);
+
+            if (!creationResult.Success)
+                return BadRequest();
 
             return Ok();
         }

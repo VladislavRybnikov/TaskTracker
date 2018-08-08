@@ -18,5 +18,7 @@ namespace TaskTracker.Bll.Abstract.Services
             workTaskUserDto);
         Task<Result> DeleteWorkTaskUserAsync(WorkTaskUserDto 
             workTaskUserDto);
+        Task<DataResult<WorkTaskUserDto>> GetWorkTaskUserByMailAsync
+            (string mail);
     }
 }
