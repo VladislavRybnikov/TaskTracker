@@ -35,5 +35,12 @@ namespace TaskTracker.Dal.Impl.Ef.Repositories
 
             return await FirstAsync(specification);
         }
+
+        public async Task<WorkTaskUser> GetByName(string name)
+        {
+            var specification = new UserInfoByNameSpecification(name);
+
+            return await FirstAsync(specification);
+        }
     }
 }

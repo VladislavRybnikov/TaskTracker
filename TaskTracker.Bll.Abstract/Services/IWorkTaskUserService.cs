@@ -20,5 +20,7 @@ namespace TaskTracker.Bll.Abstract.Services
             workTaskUserDto);
         Task<DataResult<WorkTaskUserDto>> GetWorkTaskUserByMailAsync
             (string mail);
+        Task<DataResult<WorkTaskUserDto>> GetWorkTaskUserByNameAsync
+            (string name);
     }
 }

@@ -27,7 +27,7 @@ namespace TaskTracker.UnitTests.Mock.Repositories
             GetAllTasksByWorkerIdAsync(int id)
         {
             return await GetAllAsync(new Specification<WorkTask>
-                (x => x.Performers.First(y => y.Id == id) != null));
+                (x => x.WorkTaskUsers.First(y => y.Id == id) != null));
         }
     }
 }

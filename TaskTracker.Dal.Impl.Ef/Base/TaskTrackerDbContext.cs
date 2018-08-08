@@ -6,9 +6,9 @@ using TaskTracker.Entities;
 
 namespace TaskTracker.Dal.Impl.Ef.Base
 {
-    internal class TaskTrackerDbContext : DbContext
+    public class TaskTrackerDbContext : DbContext
     {
-        public TaskTrackerDbContext() : base("connectionInConfig")
+        public TaskTrackerDbContext() : base("name=TaskTrackerDb")
         {
         }
 
@@ -19,5 +19,18 @@ namespace TaskTracker.Dal.Impl.Ef.Base
         public DbSet<WorkTaskDateInfo> WorkTaskDateInfos { get; set; }
         public DbSet<WorkTaskProgress> WorkTaskProgresses { get; set; }
         public DbSet<WorkTaskUser> WorkTaskUsers { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<WorkTaskUser>()
+                .HasMany(u => u.WorkTasks)
+                .WithMany(t => t.WorkTaskUsers)
+                .Map(ut =>
+                {
+                    ut.MapLeftKey("WorkTaskUserRefId");
+                    ut.MapRightKey("WorkTaskRefId");
+                    ut.ToTable("WorkTaskUser_WorkTask");
+                });
+        }
     }
 }

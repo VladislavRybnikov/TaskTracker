@@ -9,11 +9,11 @@ namespace TaskTracker.Dal.Impl.Ef.Specifications
     public class TaskByPerformerIdSpecification : Specification<WorkTask>
     {
         public TaskByPerformerIdSpecification(int performerId)
-            : base(task => task.Performers
+            : base(task => task.WorkTaskUsers
             .FirstOrDefault(performer => performer.Id == performerId)
                     != null)
         {
-            AddInclude(x => x.Performers);
+            AddInclude(x => x.WorkTaskUsers);
         }
     }
 }

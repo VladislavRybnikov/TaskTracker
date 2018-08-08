@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TaskTracker.Dal.Abstract.Repositories;
 using TaskTracker.Dal.Abstract.Uof;
+using TaskTracker.Dal.Impl.Ef.Base;
 using TaskTracker.Dal.Impl.Ef.Repositories;
 using TaskTracker.Entities.Base;
 
@@ -27,9 +28,9 @@ namespace TaskTracker.Dal.Impl.Ef.Uof
         private IWorkTaskPointProgressRepository 
             _workTaskPointProgressRepository;
 
-        public UnitOfWork(DbContext context)
+        public UnitOfWork()
         {
-            _context = context;
+            _context = new TaskTrackerDbContext();
         }
 
         public IWorkTaskRepository WorkTaskRepository

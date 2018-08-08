@@ -74,7 +74,32 @@ namespace TaskTracker.Bll.Impl.Services
 
         public Task<DataResult<WorkTaskUserDto>> GetWorkTaskUserByMailAsync(string mail)
         {
+            var result = new DataResult<WorkTaskUserDto>();
+
+
             throw new NotImplementedException();
+        }
+
+        public async Task<DataResult<WorkTaskUserDto>> GetWorkTaskUserByNameAsync(string name)
+        {
+            var result = new DataResult<WorkTaskUserDto>();
+
+            var findedUser = await _unitOfWork.WorkTaskUserRepository
+                .GetByName(name);
+
+            if (findedUser == null)
+            {
+                result.Message = "User not found.";
+                return result;
+            }
+
+            var mappedUserDto = _userMapper.Map(findedUser);
+
+            result.Data = mappedUserDto;
+            result.Message = "Success.";
+            result.Success = true;
+
+            return result;
         }
 
         public async Task<Result> UpdateWorkTaskUserAsync

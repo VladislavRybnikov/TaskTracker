@@ -25,7 +25,7 @@ using TaskTracker.WebApi.Results;
 namespace TaskTracker.WebApi.Controllers
 {
     [Authorize]
-    [RoutePrefix("api/Account")]
+    [RoutePrefix("api/Acc")]
     public class AccountController : ApiController
     {
         private const string LocalLoginProvider = "Local";

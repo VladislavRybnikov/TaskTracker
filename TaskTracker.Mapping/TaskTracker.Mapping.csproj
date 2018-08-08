@@ -9,6 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TaskTracker.Common\TaskTracker.Common.csproj" />
     <ProjectReference Include="..\TaskTracker.Dto\TaskTracker.Dto.csproj" />
     <ProjectReference Include="..\TaskTracker.Entities\TaskTracker.Entities.csproj" />
     <ProjectReference Include="..\TaskTracker.Messaging.Entities\TaskTracker.Messaging.Entities.csproj" />

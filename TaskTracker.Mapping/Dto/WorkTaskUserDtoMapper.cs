@@ -20,7 +20,7 @@ namespace TaskTracker.Mapping.Dto
                 FullName = from.FullName,
                 Info = from.Info,
                 AvatarPath = from.AvatarPath,
-                Role = from.Role,
+                Role = (byte)from.Role,
                 Specialization = from.Specialization,
                 UserContacts = new UserContacts
                 {

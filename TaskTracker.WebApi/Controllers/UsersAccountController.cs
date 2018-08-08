@@ -13,8 +13,12 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
 using TaskTracker.Bll.Abstract.Messaging.Notifications;
+using TaskTracker.Bll.Abstract.Services;
 using TaskTracker.Common.Enums;
 using TaskTracker.Common.Results;
+using TaskTracker.Dal.Impl.Ef.Base;
+using TaskTracker.Dto;
+using TaskTracker.Mapping.Base;
 using TaskTracker.Messaging.Entities;
 using TaskTracker.ViewModels.Json.Auth;
 using TaskTracker.ViewModels.Json.User;
@@ -23,25 +27,35 @@ using TaskTracker.WebApi.Models;
 namespace TaskTracker.WebApi.Controllers
 {
     [Authorize]
-    [RoutePrefix("api/users")]
+    [RoutePrefix("api/account")]
     public class UsersAccountController : ApiController
     {
         private const string LocalLoginProvider = "Local";
         private ApplicationUserManager _userManager;
         private readonly ITemplateSender _templateSender;
+        private readonly IWorkTaskUserService _userService;
+        private readonly ILeftSideMapper
+            <RegisterUserViewModel, WorkTaskUserDto> _registerModelMapper;
 
-        public UsersAccountController(ITemplateSender templateSender)
+        public UsersAccountController(ITemplateSender templateSender,
+            IWorkTaskUserService workTaskUserService,
+            ILeftSideMapper<RegisterUserViewModel, WorkTaskUserDto> registerModelMapper)
         {
             _templateSender = templateSender;
+            _userService = workTaskUserService;
+            _registerModelMapper = registerModelMapper;
         }
 
         public UsersAccountController(ApplicationUserManager userManager,
             ISecureDataFormat<AuthenticationTicket> accessTokenFormat,
-            ITemplateSender templateSender)
+            ITemplateSender templateSender,
+            ILeftSideMapper<RegisterUserViewModel, WorkTaskUserDto> registerModelMapper,
+            IWorkTaskUserService workTaskUserService)
         {
             UserManager = userManager;
             AccessTokenFormat = accessTokenFormat;
             _templateSender = templateSender;
+            _registerModelMapper = registerModelMapper;
         }
 
         public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat
@@ -129,10 +143,19 @@ namespace TaskTracker.WebApi.Controllers
                 ToName = model.Name
             };
 
+            var workTaskUserDto = _registerModelMapper.Map(model);
 
-            await _templateSender.SendAsync(
+            var userCreationResult = await _userService.CreateWorkTaskUserAsync
+                (workTaskUserDto);
+
+            if (!userCreationResult.Success)
+            {
+                return BadRequest(userCreationResult.Message);
+            }
+
+            /*await _templateSender.SendAsync(
                 MessageTemplateType.RegistrationConfirm,
-                systemMailEntity, null);
+                systemMailEntity, null);*/
 
             return await loginResult;
         }

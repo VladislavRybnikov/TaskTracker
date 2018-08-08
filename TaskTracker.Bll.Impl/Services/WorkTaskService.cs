@@ -66,7 +66,7 @@ namespace TaskTracker.Bll.Impl.Services
                 if (ifUserExist)
                 {
                     findedUser.WorkTasks.Add(findedTask);
-                    findedTask.Performers.Add(findedUser);
+                    findedTask.WorkTaskUsers.Add(findedUser);
 
                     _unitOfWork.WorkTaskUserRepository.Update(findedUser);
                     _unitOfWork.WorkTaskRepository.Update(findedTask);

@@ -381,9 +381,21 @@
       <Project>{7D9F268D-66EC-4586-A74C-E017B1A36FAF}</Project>
       <Name>TaskTracker.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TaskTracker.Dal.Abstract\TaskTracker.Dal.Abstract.csproj">
+      <Project>{40014512-C857-4739-99EE-6AAFED33D3B1}</Project>
+      <Name>TaskTracker.Dal.Abstract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TaskTracker.Dal.Impl.Ef\TaskTracker.Dal.Impl.Ef.csproj">
+      <Project>{FF3A27E6-8679-49F1-B372-3FA6950D5D9D}</Project>
+      <Name>TaskTracker.Dal.Impl.Ef</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TaskTracker.Dto\TaskTracker.Dto.csproj">
       <Project>{B30A9D86-CDFA-4781-B7F4-AC2002F85920}</Project>
       <Name>TaskTracker.Dto</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TaskTracker.Entities\TaskTracker.Entities.csproj">
+      <Project>{8E22BBA5-BFF2-4F6A-B408-76A67133CFFE}</Project>
+      <Name>TaskTracker.Entities</Name>
     </ProjectReference>
     <ProjectReference Include="..\TaskTracker.Mapping\TaskTracker.Mapping.csproj">
       <Project>{ED52C5F7-4BFE-477F-A856-D81979098D0C}</Project>

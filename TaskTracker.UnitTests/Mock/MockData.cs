@@ -156,7 +156,7 @@ namespace TaskTracker.UnitTests.Mock
                                 ExecutedPercent = 0
                             },
 
-                            Performers = new List<WorkTaskUser>(),
+                            WorkTaskUsers = new List<WorkTaskUser>(),
                             WorkTaskPoints = new List<WorkTaskPoint>()
                         },
                         new WorkTask
@@ -193,7 +193,7 @@ namespace TaskTracker.UnitTests.Mock
                                 WorkTaskState = 1,
                                 ExecutedPercent = 0
                             },
-                            Performers = new List<WorkTaskUser>(),
+                            WorkTaskUsers = new List<WorkTaskUser>(),
                             WorkTaskPoints = new List<WorkTaskPoint>()
 
                         }
