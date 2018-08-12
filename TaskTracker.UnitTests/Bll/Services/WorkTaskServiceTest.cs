@@ -64,7 +64,7 @@ namespace TaskTracker.UnitTests.Bll.Services
         {
             var service = MockWorkTaskService;
 
-            var workTaskResult = service.GetWorkTaskAsync(name).Result;
+            var workTaskResult = service.GetWorkTaskByNameAsync(name).Result;
 
             TestContext.Out.WriteLine(workTaskResult.Message);
             Assert.True(workTaskResult.Success);

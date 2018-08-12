@@ -16,6 +16,7 @@ namespace TaskTracker.Mapping.ViewModel
         {
             return new WorkTaskUserViewModel
             {
+                Id = from.Id,
                 Name = from.Name,
                 FullName = from.FullName,
                 City = from.City,
@@ -41,6 +42,7 @@ namespace TaskTracker.Mapping.ViewModel
         {
             return new WorkTaskUserDto
             {
+                Id = from.Id,
                 Name = from.Name,
                 FullName = from.FullName,
                 AvatarPath = from.AvatarPath,

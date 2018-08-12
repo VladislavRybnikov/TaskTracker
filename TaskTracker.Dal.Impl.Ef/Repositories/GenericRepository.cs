@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using TaskTracker.Dal.Abstract.Base;
 using TaskTracker.Dal.Abstract.Repositories;
+using TaskTracker.Dal.Impl.Ef.Specifications;
 using TaskTracker.Entities.Base;
 
 namespace TaskTracker.Dal.Impl.Ef.Repositories
@@ -35,12 +37,23 @@ namespace TaskTracker.Dal.Impl.Ef.Repositories
             return GetAll(specification).FirstOrDefault();
         }
 
+        public TEntity First(Expression<Func<TEntity, bool>> criteria)
+        {
+            return First(new Specification<TEntity>(criteria));
+        }
+
         public async Task<TEntity> FirstAsync
             (ISpecification<TEntity> specification)
         {
             var allAsync = await GetAllAsync(specification);
 
             return allAsync.FirstOrDefault();
+        }
+
+        public async Task<TEntity> FirstAsync(Expression<Func<TEntity, bool>>
+            criteria)
+        {
+            return await FirstAsync(new Specification<TEntity>(criteria));
         }
 
         public IEnumerable<TEntity> GetAll()
@@ -64,6 +77,12 @@ namespace TaskTracker.Dal.Impl.Ef.Repositories
                 .AsEnumerable();
         }
 
+        public IEnumerable<TEntity> GetAll(Expression<Func<TEntity, bool>>
+            criteria)
+        {
+            return GetAll(new Specification<TEntity>(criteria));
+        }
+
         public async Task<IEnumerable<TEntity>> GetAllAsync()
         {
             return await _context.Set<TEntity>().ToListAsync();
@@ -83,6 +102,12 @@ namespace TaskTracker.Dal.Impl.Ef.Repositories
             return await secondaryResult
                 .Where(specification.Criteria)
                 .ToListAsync();
+        }
+
+        public async Task<IEnumerable<TEntity>> GetAllAsync
+            (Expression<Func<TEntity, bool>> criteria)
+        {
+            return await GetAllAsync(new Specification<TEntity>(criteria));
         }
 
         public TEntity GetById(int id)

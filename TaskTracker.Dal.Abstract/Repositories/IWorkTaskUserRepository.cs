@@ -11,7 +11,8 @@ namespace TaskTracker.Dal.Abstract.Repositories
     {
         WorkTaskUser GetWithContacts(int id);
         Task<WorkTaskUser> GetWithContactsAsync(int id);
-        Task<WorkTaskUser> FindByMailAsync(string mail);
-        Task<WorkTaskUser> GetByName(string name);
+        Task<WorkTaskUser> GetByMailAsync(string mail);
+        Task<WorkTaskUser> GetByNameAsync(string name);
+        Task<WorkTaskUser> GetWithTasks(int id);
     }
 }

@@ -23,7 +23,7 @@ namespace TaskTracker.Dal.Impl.Ef.Repositories
         }
 
         public async Task<IEnumerable<WorkTask>> 
-            GetAllTasksByWorkerIdAsync(int id)
+            GetAllTasksByPerformerIdAsync(int id)
         {
             var specification = new TaskByPerformerIdSpecification(id);
 

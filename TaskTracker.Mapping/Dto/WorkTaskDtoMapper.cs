@@ -14,6 +14,7 @@ namespace TaskTracker.Mapping.Dto
         {
             return new WorkTask
             {
+                Id = from.Id,
                 Name = from.Name,
                 Description = from.Description,
                 Category = new WorkTaskCategory { Name = from.CategoryName },
@@ -35,6 +36,7 @@ namespace TaskTracker.Mapping.Dto
         {
             var result = new WorkTaskDto
             {
+                Id = from.Id,
                 Name = from.Name,
                 Description = from.Description
             };

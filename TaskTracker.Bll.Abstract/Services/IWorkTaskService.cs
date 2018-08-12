@@ -20,7 +20,7 @@ namespace TaskTracker.Bll.Abstract.Services
             WorkTaskUserDto performer);
         Task<Result> ChangeManagerAsync(WorkTaskDto workTaskDto,
             WorkTaskUserDto manager);
-        Task<DataResult<WorkTaskDto>> GetWorkTaskAsync
+        Task<DataResult<WorkTaskDto>> GetWorkTaskByNameAsync
             (string name);
         Task<Result> AddWorkTaskPointAsync(WorkTaskDto workTaskDto,
             WorkTaskPointDto workTaskPointDto);
@@ -28,5 +28,10 @@ namespace TaskTracker.Bll.Abstract.Services
             WorkTaskUserDto workTaskUserDto);
         Task<Result> UpdateWorkTaskAsync(WorkTaskDto workTaskDto,
             WorkTaskUserDto manager);
+        Task<DataResult<IEnumerable<WorkTaskDto>>> GetByManagerName
+            (string name);
+        Task<DataResult<IEnumerable<WorkTaskDto>>> GetByPerformerName
+            (string name);
+        Task<DataResult<WorkTaskDto>> GetWorkTaskByIdAsync(int id);
     }
 }

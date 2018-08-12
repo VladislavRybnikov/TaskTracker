@@ -12,6 +12,7 @@ using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using TaskTracker.Bll.Abstract.Messaging.Notifications;
 using TaskTracker.Bll.Abstract.Services;
 using TaskTracker.Common.Enums;

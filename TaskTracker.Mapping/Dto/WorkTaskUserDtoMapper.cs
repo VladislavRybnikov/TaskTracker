@@ -16,6 +16,7 @@ namespace TaskTracker.Mapping.Dto
         {
             return new WorkTaskUser
             {
+                Id = from.Id,
                 Name = from.Name,
                 FullName = from.FullName,
                 Info = from.Info,
@@ -39,6 +40,7 @@ namespace TaskTracker.Mapping.Dto
         {
             return new WorkTaskUserDto
             {
+                Id = from.Id,
                 Name = from.Name,
                 FullName = from.FullName,
                 Info = from.Info,

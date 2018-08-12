@@ -12,7 +12,8 @@ using TaskTracker.Mapping.Base;
 
 namespace TaskTracker.Bll.Impl.Services
 {
-    public class WorkTaskUserService : UnitOfWorkBasedService, IWorkTaskUserService
+    public class WorkTaskUserService : UnitOfWorkBasedService, 
+        IWorkTaskUserService
     {
         private readonly IMapper<WorkTaskUser, WorkTaskUserDto> _userMapper;
 
@@ -55,7 +56,7 @@ namespace TaskTracker.Bll.Impl.Services
             var result = new Result();
 
             var findedUser = await _unitOfWork.WorkTaskUserRepository
-                .FindByMailAsync(workTaskUserDto.Mail);
+                .GetByMailAsync(workTaskUserDto.Mail);
 
             if (findedUser == null)
             {
@@ -72,12 +73,50 @@ namespace TaskTracker.Bll.Impl.Services
             return result;
         }
 
-        public Task<DataResult<WorkTaskUserDto>> GetWorkTaskUserByMailAsync(string mail)
+        public async Task<DataResult<WorkTaskUserDto>> 
+            GetWorkTaskUserByIdAsync(int id)
         {
             var result = new DataResult<WorkTaskUserDto>();
 
+            var findedUser = await _unitOfWork.WorkTaskUserRepository
+                .GetWithContactsAsync(id);
 
-            throw new NotImplementedException();
+            if (findedUser == null)
+            {
+                result.Message = "User not found.";
+                return result;
+            }
+
+            var mappedUserDto = _userMapper.Map(findedUser);
+
+            result.Data = mappedUserDto;
+            result.Message = "Success.";
+            result.Success = true;
+
+            return result;
+        }
+
+        public async Task<DataResult<WorkTaskUserDto>> 
+            GetWorkTaskUserByMailAsync(string mail)
+        {
+            var result = new DataResult<WorkTaskUserDto>();
+
+            var findedUser = await _unitOfWork.WorkTaskUserRepository
+                .GetByMailAsync(mail);
+
+            if (findedUser == null)
+            {
+                result.Message = "User not found.";
+                return result;
+            }
+
+            var mappedUserDto = _userMapper.Map(findedUser);
+
+            result.Data = mappedUserDto;
+            result.Message = "Success.";
+            result.Success = true;
+
+            return result;
         }
 
         public async Task<DataResult<WorkTaskUserDto>> GetWorkTaskUserByNameAsync(string name)
@@ -85,7 +124,7 @@ namespace TaskTracker.Bll.Impl.Services
             var result = new DataResult<WorkTaskUserDto>();
 
             var findedUser = await _unitOfWork.WorkTaskUserRepository
-                .GetByName(name);
+                .GetByNameAsync(name);
 
             if (findedUser == null)
             {
@@ -108,7 +147,7 @@ namespace TaskTracker.Bll.Impl.Services
             var result = new Result();
 
             var findedUser = await _unitOfWork.WorkTaskUserRepository
-                .FindByMailAsync(workTaskUserDto.Mail);
+                .GetByMailAsync(workTaskUserDto.Mail);
 
             if (findedUser == null)
             {

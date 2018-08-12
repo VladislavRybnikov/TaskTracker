@@ -6,6 +6,7 @@ namespace TaskTracker.Dto
 {
     public class WorkTaskUserDto
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public string FullName { get; set; }
         public string Info { get; set; }

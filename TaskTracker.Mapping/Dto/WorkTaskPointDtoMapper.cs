@@ -14,6 +14,7 @@ namespace TaskTracker.Mapping.Dto
         {
             return new WorkTaskPoint
             {
+                Id = from.Id,
                 Name = from.Name,
                 Description = from.Description,
                 AttachmentPath = from.AttachmentPath,
@@ -30,6 +31,7 @@ namespace TaskTracker.Mapping.Dto
         {
             var result = new WorkTaskPointDto
             {
+                Id = from.Id,
                 Name = from.Name,
                 Description = from.Description,
                 AttachmentPath = from.AttachmentPath,

@@ -6,10 +6,8 @@ namespace TaskTracker.Bll.Impl.Messaging.Templates
 {
     public static class TemplateStyleHolder
     {
- 
-        //TODO: Write template reader to get templates and styles from files.
 
-        public static string DefaultStyle =>
+        public static string ICloudSuportedStyle =>
             @"body
         {
             display: flex;
@@ -92,5 +90,6 @@ namespace TaskTracker.Bll.Impl.Messaging.Templates
 	        text-decoration: none;
 	        color: white;
         }";
+
     }
 }

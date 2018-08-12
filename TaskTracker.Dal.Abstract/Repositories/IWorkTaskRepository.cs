@@ -10,6 +10,6 @@ namespace TaskTracker.Dal.Abstract.Repositories
     public interface IWorkTaskRepository : IGenericRepository<WorkTask>
     {
         Task<IEnumerable<WorkTask>> GetAllTasksByManagerIdAsync(int id);
-        Task<IEnumerable<WorkTask>> GetAllTasksByWorkerIdAsync(int id);
+        Task<IEnumerable<WorkTask>> GetAllTasksByPerformerIdAsync(int id);
     }
 }

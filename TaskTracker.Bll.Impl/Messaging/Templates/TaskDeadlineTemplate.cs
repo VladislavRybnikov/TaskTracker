@@ -62,7 +62,7 @@ namespace TaskTracker.Bll.Impl.Messaging.Templates
                     <html>
                         <head>
                              <style> ")
-                    .Append(TemplateStyleHolder.DefaultStyle)
+                    .Append(TemplateStyleHolder.ICloudSuportedStyle)
                     .Append(@"</style>
                         </head>
                         <body>

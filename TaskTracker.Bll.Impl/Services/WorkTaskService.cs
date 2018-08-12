@@ -53,13 +53,12 @@ namespace TaskTracker.Bll.Impl.Services
             Result methodResult = new Result(); 
 
             var findedTask = await _unitOfWork.WorkTaskRepository
-                .FirstAsync(new Specification<WorkTask>(x 
-                => x.Name == workTaskDto.Name));
+                .FirstAsync(x => x.Name == workTaskDto.Name);
 
             if (findedTask != null)
             {
                 var findedUser = await _unitOfWork.WorkTaskUserRepository
-                    .FindByMailAsync(performer.Mail);
+                    .GetByMailAsync(performer.Mail);
 
                 bool ifUserExist = findedUser != null;
 
@@ -103,17 +102,15 @@ namespace TaskTracker.Bll.Impl.Services
             Result methodResult = new Result();
 
             var findedTask = await _unitOfWork.WorkTaskRepository
-                .FirstAsync(new Specification<WorkTask>(x
-                => x.Name == workTaskDto.Name));
+                .FirstAsync(x => x.Name == workTaskDto.Name);
 
             if (findedTask != null)
             {
                 var pointEntity = _workTaskPointDtoMapper.Map(workTaskPointDto);
 
                 var findedTaskPoint = await _unitOfWork.WorkTaskPointRepository
-                    .FirstAsync(new Specification<WorkTaskPoint>
-                    (x => x.Name == pointEntity.Name
-                    && x.Description == pointEntity.Description));
+                    .FirstAsync(x => x.Name == pointEntity.Name
+                    && x.Description == pointEntity.Description);
 
                 if (findedTask != null)
                 {
@@ -153,8 +150,7 @@ namespace TaskTracker.Bll.Impl.Services
             Result methodResult = new Result();
 
             var findedTask = await _unitOfWork.WorkTaskRepository
-               .FirstAsync(new Specification<WorkTask>(x
-               => x.Name == workTaskDto.Name));
+               .FirstAsync(x => x.Name == workTaskDto.Name);
 
             if (findedTask != null)
             {
@@ -190,13 +186,12 @@ namespace TaskTracker.Bll.Impl.Services
             var taskEntity = _workTaskDtoMapper.Map(workTaskDto);
 
             var findedTask = await _unitOfWork.WorkTaskRepository
-                .FirstAsync(new Specification<WorkTask>(x
-                => x.Name == taskEntity.Name));
+                .FirstAsync(x => x.Name == taskEntity.Name);
 
             if (findedTask != null)
             {
                 var findedUser = await _unitOfWork.WorkTaskUserRepository
-                    .FindByMailAsync(manager.Mail);
+                    .GetByMailAsync(manager.Mail);
 
                 bool userExist = findedUser != null;
 
@@ -259,7 +254,7 @@ namespace TaskTracker.Bll.Impl.Services
 
             var findedUser =
                 await _unitOfWork.WorkTaskUserRepository
-                .FindByMailAsync(manager.Mail);
+                .GetByMailAsync(manager.Mail);
 
             if (findedUser != null)
             {
@@ -326,11 +321,10 @@ namespace TaskTracker.Bll.Impl.Services
             var result = new Result();
 
             var findedUser = await _unitOfWork
-                .WorkTaskUserRepository.FindByMailAsync(manager.Mail);
+                .WorkTaskUserRepository.GetByMailAsync(manager.Mail);
 
             var findedTask = await _unitOfWork.WorkTaskRepository
-                .FirstAsync(new Specification<WorkTask>(x => x.Name 
-                == workTaskDto.Name));
+                .FirstAsync(x => x.Name == workTaskDto.Name);
 
             if(findedUser == null)
             {
@@ -369,20 +363,102 @@ namespace TaskTracker.Bll.Impl.Services
             return result;
         }
 
+        public async Task<DataResult<IEnumerable<WorkTaskDto>>> GetByManagerName(string name)
+        {
+            var result = new DataResult<IEnumerable<WorkTaskDto>>();
+
+            var findedUser = await _unitOfWork.WorkTaskUserRepository
+                .GetByNameAsync(name);
+
+            if(findedUser == null)
+            {
+                result.Message = "User not found.";
+                return result;
+            }
+
+            var workTasks = await _unitOfWork.WorkTaskRepository
+                .GetAllTasksByManagerIdAsync(findedUser.Id);
+
+            if(workTasks == null || workTasks.Count() == 0)
+            {
+                result.Message = "User has not managed tasks.";
+                return result;
+            }
+
+            result.Success = true;
+            result.Message = $"Work Tasks. Manager: {name}";
+            result.Data = _workTaskDtoMapper.Map(workTasks);
+
+            return result;
+        }
+
+        public async Task<DataResult<IEnumerable<WorkTaskDto>>> 
+            GetByPerformerName(string name)
+        {
+            var result = new DataResult<IEnumerable<WorkTaskDto>>();
+
+            var findedUser = await _unitOfWork.WorkTaskUserRepository
+                .GetByNameAsync(name);
+
+            if (findedUser == null)
+            {
+                result.Message = "User not found.";
+                return result;
+            }
+
+            var workTasks = await _unitOfWork.WorkTaskRepository
+                .GetAllTasksByPerformerIdAsync(findedUser.Id);
+
+            if (workTasks == null || workTasks.Count() == 0)
+            {
+                result.Message = "User has not performed tasks.";
+                return result;
+            }
+
+            result.Success = true;
+            result.Message = $"Work Tasks. Manager: {name}";
+            result.Data = _workTaskDtoMapper.Map(workTasks);
+
+            return result;
+        }
+
+        public async Task<DataResult<WorkTaskDto>> GetWorkTaskByIdAsync(int id)
+        {
+            DataResult<WorkTaskDto> methodResult
+               = new DataResult<WorkTaskDto>();
+
+            WorkTask workTask = await _unitOfWork.WorkTaskRepository
+                .FirstAsync(x => x.Id == id);
+
+            if (workTask != null)
+            {
+                methodResult.Data = _workTaskDtoMapper.Map(workTask);
+                methodResult.Success = true;
+
+                methodResult.Message = $"WorkTask: ({workTask.Name})";
+            }
+            else
+            {
+                methodResult.Message = $"Not Found.";
+            }
+
+            return methodResult;
+        }
+
         /// <summary>
         /// Get WorkTaskiInformation.
         /// </summary>
         /// <param name="name"> WorkTask name </param>
         /// <param name="manager"></param>
         /// <returns></returns>
-        public async Task<DataResult<WorkTaskDto>> GetWorkTaskAsync
+        public async Task<DataResult<WorkTaskDto>> GetWorkTaskByNameAsync
             (string name)
         {
             DataResult<WorkTaskDto> methodResult 
                 = new DataResult<WorkTaskDto>();
 
             WorkTask workTask = await _unitOfWork.WorkTaskRepository
-                .FirstAsync(new Specification<WorkTask>(x => x.Name == name));
+                .FirstAsync(x => x.Name == name);
 
             if (workTask != null)
             {
@@ -405,11 +481,10 @@ namespace TaskTracker.Bll.Impl.Services
             var result = new Result();
 
             var findedUser = await _unitOfWork
-                .WorkTaskUserRepository.FindByMailAsync(manager.Mail);
+                .WorkTaskUserRepository.GetByMailAsync(manager.Mail);
 
             var findedTask = await _unitOfWork.WorkTaskRepository
-                .FirstAsync(new Specification<WorkTask>(x => x.Name
-                == workTaskDto.Name));
+                .FirstAsync(x => x.Name == workTaskDto.Name);
 
             if (findedUser == null)
             {
